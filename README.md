@@ -27,7 +27,7 @@
 ### Semester Assignments
 
 - Link to Assignment 1: [**Assignment 1 -Idea Pitch**](https://github.com/rene19082003/Projekt_Korisnicka_Sucelja/blob/main/Idea_Pitch_Summary.md) <!-- Replace with actual URL -->
-- Link to Assignment 2: [**Assignment 2-User personas and information architecture**](https://github.com/rene19082003/Projekt_Korisnicka_Sucelja/blob/main/MatchTrack%20–%20Deliverables%20-%20User%20Personas%2C%20Information%20Architecture%20%26%20Sitemap.md) <!-- Replace with actual URL -->
+- Link to Assignment 2: [**Assignment 2-User personas and information architecture**](https://github.com/rene19082003/Projekt_Korisnicka_Sucelja/blob/main/MatchTrack%20%E2%80%93%20Deliverables%20-%20User%20Personas%2C%20Information%20Architecture%20%26%20Sitemap.md) <!-- Replace with actual URL -->
 - Link to Assignment 3: [**Assignment 3**](https://projekt-korisnicka-sucelja-two.vercel.app/) 
 <!-- Add more assignments as necessary -->
 
