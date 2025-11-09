@@ -28,7 +28,8 @@
 
 - Link to Assignment 1: [**Assignment 1 -Idea Pitch**](https://github.com/rene19082003/Projekt_Korisnicka_Sucelja/blob/main/Idea_Pitch_Summary.md) <!-- Replace with actual URL -->
 - Link to Assignment 2: [**Assignment 2-User personas and information architecture**](https://github.com/rene19082003/Projekt_Korisnicka_Sucelja/blob/main/MatchTrack%20%E2%80%93%20Deliverables%20-%20User%20Personas%2C%20Information%20Architecture%20%26%20Sitemap.md) <!-- Replace with actual URL -->
-- Link to Assignment 3: [**Assignment 3**](https://projekt-korisnicka-sucelja-two.vercel.app/) 
+- Link to Assignment 3: [**Assignment 3- Next.js - Deploying Application**](https://projekt-korisnicka-sucelja-two.vercel.app/)
+- Link to Assignment 4: [**Assignment 4- Low/High-fidelity prototype**](https://github.com/rene19082003/Projekt_Korisnicka_Sucelja/blob/main/Figma%20prototipovi.md)
 <!-- Add more assignments as necessary -->
 
 ## Project Requirements
