@@ -12,17 +12,17 @@ Koristi se za brzu validaciju dizajna i funkcionalnosti.
 
 ### ✅ Desktop – Početna stranica
 
-<img width="1365" height="808" alt="LoFi Desktop 1" src="https://github.com/user-attachments/assets/83ee8e38-e9d2-4606-824e-80884d889356" />
+<img width="1365" height="808" alt="LoFi Desktop 1" src="images/Snimka zaslona 2025-11-09 224710.png" />
 
 <br/><br/><br/>
 
-<img width="1331" height="817" alt="LoFi Desktop 2" src="https://github.com/user-attachments/assets/208bcc54-24f9-4f3e-820d-df67c3edb1b5" />
+<img width="1331" height="817" alt="LoFi Desktop 2" src="images/Snimka zaslona 2025-11-09 224722.png" />
 
 ---
 
 ### ✅ Mobile – Početna stranica
 
-<img width="597" height="735" alt="LoFi Mobile" src="https://github.com/user-attachments/assets/afc9c52b-b244-4bbe-8043-4d4c28dbe239" />
+<img width="597" height="735" alt="LoFi Mobile" src="images/Snimka zaslona 2025-11-09 224656.png" />
 
 ---
 
@@ -33,17 +33,16 @@ Ovaj prototip izgleda kao gotova aplikacija i pogodan je za korisnička testiran
 
 ### ✅ Desktop – Početna stranica
 
-<img width="1324" height="830" alt="HiFi Desktop 1" src="https://github.com/user-attachments/assets/587abe55-8900-478b-bba2-9a99eed96373" />
+<img width="1324" height="830" alt="HiFi Desktop 1" src="images/Snimka zaslona 2025-11-09 224524.png" />
 
 <br/><br/><br/>
 
-<img width="1324" height="816" alt="HiFi Desktop 2" src="https://github.com/user-attachments/assets/7fe9a0ca-8501-4f3c-8d9d-987920db32d2" />
+<img width="1324" height="816" alt="HiFi Desktop 2" src="images/Snimka zaslona 2025-11-09 224559.png" />
 
 ---
 
 ### ✅ Mobile – Početna stranica
 
-<img width="421" height="747" alt="HiFi Mobile" src="https://github.com/user-attachments/assets/ed8c9207-dee8-4327-9a0f-8a8c62897298" />
+<img width="421" height="747" alt="HiFi Mobile" src="images/Snimka zaslona 2025-11-09 224616.png" />
 
 ---
-
