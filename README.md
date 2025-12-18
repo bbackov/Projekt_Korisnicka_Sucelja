@@ -31,6 +31,8 @@
 - Link to Assignment 3: [**Assignment 3- Next.js - Deploying Application**](https://projekt-korisnicka-sucelja-two.vercel.app/)
 - Link to Assignment 4: [**Assignment 4- Low/High-fidelity prototype**](https://github.com/rene19082003/Projekt_Korisnicka_Sucelja/blob/main/Figma%20prototipovi.md)
 <!-- Add more assignments as necessary -->
+- Link to Assignment 5: [**Assignment 5- Next.js - Dynamic routes, data fetching**](https://projekt-korisnicka-sucelja-ds7qnjb9k-renatos-projects-337a747c.vercel.app/termini)
+<!-- Add more assignments as necessary -->
 
 ## Project Requirements
 
