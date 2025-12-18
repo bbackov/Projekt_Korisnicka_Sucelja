@@ -10,7 +10,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     { href: "/teams", label: "Teams" },
     { href: "/players", label: "Players" },
     { href: "/venues", label: "Venues" },
-    { href: "/blog", label: "Blog" },
+    { href: "/termini", label: "Termini" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
     { href: "/authentication/login", label: "Login" },
