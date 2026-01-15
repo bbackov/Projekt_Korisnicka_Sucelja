@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { registerValidation } from "@/app/util/registerValidation";
+import { registerValidation } from "@/util/registerValidation";
 import { useRouter } from "next/navigation";
 
 
@@ -37,12 +37,12 @@ export default function Page() {
 
       if(result.valid){
         setMessage("Uspješna registracija");
-        setModal(true);
       }
       else{
         setMessage(result.error);
-        setModal(true);
       }
+      setModal(true);
+
       return;
     }
   
@@ -51,7 +51,7 @@ export default function Page() {
     if(valid){
       router.push("/authentication/login");
     }
-
+    return;
   }
 
 

@@ -1,0 +1,62 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+
+  .icon {
+    width: 32px;
+    text-align: center;
+    font-size: 24px;      
+    line-height: 1;
+  }
+  
+
+  .info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .title {
+    font-size: 13px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  
+  
+  .button {
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background-color: #f3f4f6;
+    color: #111827;
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+
+  }
+  
+  .button:hover {
+    background-color: #e5e7eb;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 10px;           
+    margin-bottom: 6px;
+  }
+  
+  .aktivnost {
+    font-size: 15px;     
+    font-weight: 600;     
+    color: #111827;
+  }
