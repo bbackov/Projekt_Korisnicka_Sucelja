@@ -33,7 +33,7 @@
 <!-- Add more assignments as necessary -->
 - Link to Assignment 5: [**Assignment 5- Next.js - Dynamic routes, data fetching**](https://projekt-korisnicka-sucelja-ds7qnjb9k-renatos-projects-337a747c.vercel.app/termini)
 <!-- Add more assignments as necessary -->
-
+- Link to Assignment 6: [**Assignment 6- Full Responsive Page Coding**](https://projekt-korisnicka-sucelja-orcin.vercel.app/)
 ## Project Requirements
 
 ### Web Application Requirements
