@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SPORT_DOGADJAJI } from "./data";
+import TopMenu from "@/components/layout/TopMenu"; // Uvozimo tvoj novi Navbar s ikonama
 
 export default async function DogadjajiPage({ 
   searchParams 
@@ -8,57 +9,75 @@ export default async function DogadjajiPage({
 }) {
   const params = await searchParams;
   
-  // 1. Trenutna stranica iz URL-a (zadani broj je 1)
+  // Logika paginacije
   const currentPage = Number(params.page) || 1;
-  
-  // 2. Koliko stavki želimo po stranici
   const limit = 9; 
-  
-  // 3. Izračun početne i završne točke za rezanje niza (slice)
   const start = (currentPage - 1) * limit;
   const end = start + limit;
-  
-  // 4. Uzimamo samo dio podataka iz baze (npr. od 0 do 8, pa od 8 do 16...)
   const matches = SPORT_DOGADJAJI.slice(start, end);
-
-  // 5. Izračun ukupnog broja stranica (40 / 8 = 5 stranica)
   const totalPages = Math.ceil(SPORT_DOGADJAJI.length / limit);
 
   return (
-    <section style={{ padding: "30px", backgroundColor: "#f0f2f5", minHeight: "100vh" }}>
-      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-        <h1 style={{ textAlign: "center", marginBottom: "40px" }}>Aktivnosti u zajednici</h1>
+    <div className="min-h-screen bg-white">
+      {/* 1. NAVBAR - Tvoj novi TopMenu s ikonama i hamburgerom */}
+      <TopMenu />
+
+      {/* 2. GLAVNI SADRŽAJ */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         
-        {/* Grid s karticama */}
-        <div style={{ 
-          display: "grid", 
-          gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", 
-          gap: "20px" 
-        }}>
+        {/* Naslov sekcije */}
+        <div className="mb-10">
+          <h1 className="text-3xl font-black text-gray-900 tracking-tight">
+            Aktivnosti u zajednici
+          </h1>
+          <p className="text-gray-500 font-medium">Pronađi ekipu i pridruži se sportskim terminima.</p>
+        </div>
+        
+        {/* Grid s karticama - Responzivan: 1 kolona mobitel, 3 desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {matches.map((item) => {
             const isFull = item.prijavljeno >= item.kapacitet;
-            return (
-              <div key={item.id} style={cardStyle}>
-                <div style={{ fontSize: "40px" }}>{item.ikona}</div>
-                <h3>{item.aktivnost}</h3>
-                <p style={{ color: "#666", fontSize: "14px" }}>📍 {item.lokacija}</p>
-                <p style={{ fontWeight: "bold", color: "#007bff" }}>🕒 {item.vrijeme}</p>
-                
-                {/* Progress bar */}
-                <div style={progressContainerStyle}>
-                  <div style={{ 
-                    ...progressBarStyle, 
-                    width: `${(item.prijavljeno / item.kapacitet) * 100}%`,
-                    backgroundColor: isFull ? "#dc3545" : "#28a745"
-                  }} />
-                </div>
-                <p style={{ fontSize: "12px" }}>{item.prijavljeno}/{item.kapacitet} mjesta</p>
+            const progressWidth = (item.prijavljeno / item.kapacitet) * 100;
 
-                <Link href={`/termini/${item.id}`} style={{
-                  ...btnStyle,
-                  backgroundColor: isFull ? "#6c757d" : "#000"
-                }}>
-                  {isFull ? "Popunjeno - Vidi detalje" : "Pridruži se"}
+            return (
+              <div 
+                key={item.id} 
+                className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 group"
+              >
+                {/* Ikona i Naslov */}
+                <div className="text-5xl mb-4 group-hover:scale-110 transition-transform">{item.ikona}</div>
+                <h3 className="text-xl font-bold text-gray-800 uppercase tracking-tight">{item.aktivnost}</h3>
+                
+                {/* Detalji */}
+                <div className="mt-3 space-y-1">
+                  <p className="text-gray-500 text-sm flex items-center gap-2">📍 {item.lokacija}</p>
+                  <p className="text-blue-600 font-bold text-sm flex items-center gap-2">🕒 {item.vrijeme}</p>
+                </div>
+                
+                {/* Progress Bar (Tvoja originalna logika) */}
+                <div className="mt-6">
+                  <div className="flex justify-between text-[10px] font-black uppercase text-gray-400 mb-2">
+                    <span>Popunjenost</span>
+                    <span>{item.prijavljeno}/{item.kapacitet}</span>
+                  </div>
+                  <div className="bg-gray-100 h-2 rounded-full overflow-hidden">
+                    <div 
+                      className={`h-full transition-all duration-500 ${isFull ? 'bg-red-500' : 'bg-blue-600'}`}
+                      style={{ width: `${progressWidth}%` }}
+                    />
+                  </div>
+                </div>
+
+                {/* Gumb za akciju */}
+                <Link 
+                  href={`/termini/${item.id}`} 
+                  className={`block w-full mt-6 text-center py-4 rounded-2xl font-black text-sm transition-all active:scale-95 ${
+                    isFull 
+                    ? "bg-gray-100 text-gray-400 cursor-not-allowed" 
+                    : "bg-gray-900 text-white hover:bg-blue-600 shadow-lg shadow-gray-900/10"
+                  }`}
+                >
+                  {isFull ? "POPUNJENO - VIDI DETALJE" : "PRIDRUŽI SE"}
                 </Link>
               </div>
             );
@@ -66,43 +85,34 @@ export default async function DogadjajiPage({
         </div>
 
         {/* --- KONTROLE PAGINACIJE --- */}
-        <div style={{ 
-          marginTop: "50px", 
-          display: "flex", 
-          justifyContent: "center", 
-          alignItems: "center", 
-          gap: "15px" 
-        }}>
-          {/* Gumb Prethodna - prikazuje se samo ako nismo na prvoj stranici */}
+        <div className="mt-16 flex flex-col sm:flex-row justify-center items-center gap-6">
           {currentPage > 1 ? (
-            <Link href={`/termini?page=${currentPage - 1}`} style={navLinkStyle}>
+            <Link 
+              href={`/termini?page=${currentPage - 1}`} 
+              className="px-6 py-2 border border-gray-200 rounded-xl font-bold text-sm hover:bg-gray-50 transition"
+            >
               ← Prethodna
             </Link>
           ) : (
-            <span style={{ ...navLinkStyle, color: "#ccc", cursor: "not-allowed" }}>← Prethodna</span>
+            <span className="px-6 py-2 border border-gray-50 rounded-xl text-gray-300 font-bold text-sm cursor-not-allowed">← Prethodna</span>
           )}
 
-          <div style={{ fontWeight: "bold" }}>
+          <div className="font-bold text-sm text-gray-900 bg-gray-100 px-4 py-2 rounded-full">
             Stranica {currentPage} od {totalPages}
           </div>
 
-          {/* Gumb Sljedeća - prikazuje se samo ako ima još stranica */}
           {currentPage < totalPages ? (
-            <Link href={`/termini?page=${currentPage + 1}`} style={navLinkStyle}>
+            <Link 
+              href={`/termini?page=${currentPage + 1}`} 
+              className="px-6 py-2 border border-gray-200 rounded-xl font-bold text-sm hover:bg-gray-50 transition"
+            >
               Sljedeća →
             </Link>
           ) : (
-            <span style={{ ...navLinkStyle, color: "#ccc", cursor: "not-allowed" }}>Sljedeća →</span>
+            <span className="px-6 py-2 border border-gray-50 rounded-xl text-gray-300 font-bold text-sm cursor-not-allowed">Sljedeća →</span>
           )}
         </div>
-      </div>
-    </section>
+      </main>
+    </div>
   );
 }
-
-// Stilovi
-const cardStyle = { background: "white", borderRadius: "15px", padding: "20px", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" };
-const progressContainerStyle = { background: "#eee", borderRadius: "10px", height: "8px", margin: "10px 0" };
-const progressBarStyle = { height: "100%", borderRadius: "10px", transition: "width 0.3s" };
-const btnStyle = { display: "block", marginTop: "15px", textAlign: "center" as const, padding: "10px", color: "white", borderRadius: "8px", textDecoration: "none", fontWeight: "bold" as const };
-const navLinkStyle = { padding: "10px 20px", background: "white", border: "1px solid #ddd", borderRadius: "8px", textDecoration: "none", color: "#333" };
