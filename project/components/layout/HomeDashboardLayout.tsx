@@ -2,14 +2,14 @@
 
 import Sidebar from "./Sidebar";
 import RightPanel from "./RightPanel";
-import styles from "./DashboardLayout.module.css";
+import styles from "./HomeDashboardLayout.module.css";
 
 
 type DashboardLayoutProps = {
     children: React.ReactNode;
   };
   
-  export default function DashboardLayout({ children }: DashboardLayoutProps) {
+  export default function HomeDashboardLayout({ children }: DashboardLayoutProps) {
     return (
       <div className={styles.dashboard}>
         <aside className={styles.sidebar}>

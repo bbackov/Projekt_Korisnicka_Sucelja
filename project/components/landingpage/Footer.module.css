@@ -1,0 +1,51 @@
+.footer {
+    border-top: 1px solid rgba(37, 99, 235, 0.08);
+    background: linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #f8faff 100%
+    );
+}
+  
+.container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 32px 1.5rem;
+  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+  
+.brand {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+  
+    background: linear-gradient(
+      90deg,
+      #2563eb,
+      #7c3aed
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+  
+.copy {
+    font-size: 14px;
+    color: #64748b;
+    white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+    .container {
+        flex-direction: column;
+        text-align: center;
+    }
+  
+    .copy {
+        white-space: normal;
+    }
+}
+  

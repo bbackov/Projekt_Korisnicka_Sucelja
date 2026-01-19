@@ -1,0 +1,167 @@
+
+.section {
+    padding: 64px 0;
+}
+  
+
+.header {
+    margin-bottom: 32px;
+}
+  
+.title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 8px;
+}
+  
+.underline {
+    display: block;
+    width: 64px;
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #2563eb, #7c3aed);
+}
+  
+  
+.card {
+    padding: 32px;
+    border-radius: 20px;
+  
+    background: linear-gradient(
+      135deg,
+      #f1f5ff 0%,
+      #f8faff 100%
+    );
+}
+  
+
+.iconWrapper {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.35);
+  
+    margin-bottom: 24px;
+}
+  
+ 
+.icon {
+    width: 28px;
+    height: 28px;
+    stroke-width: 2.2;
+    color: #ffffff;
+}
+  
+ 
+.cardTitle {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 12px;
+}
+  
+  
+.description {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #475569;
+    margin-bottom: 24px;
+}
+  
+.description span {
+    font-weight: 600;
+    color: #2563eb;
+}
+  
+  
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  
+    width: 100%;
+    padding: 14px 20px;
+  
+    font-size: 15px;
+    font-weight: 600;
+  
+    color: #ffffff;
+    background: linear-gradient(90deg, #2563eb, #7c3aed);
+  
+    border-radius: 14px;
+    text-decoration: none;
+  
+    box-shadow: 0 16px 32px rgba(37, 99, 235, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+  
+.button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 22px 40px rgba(37, 99, 235, 0.45);
+}
+
+@media (min-width: 1024px) {
+    .sticky {
+      position: sticky;
+      top: 96px; 
+      align-self: flex-start;
+    }
+}
+
+@media (max-width: 640px) {
+    .section {
+      padding: 40px 0;
+    }
+  
+    .header {
+      margin-bottom: 24px;
+    }
+  
+    .title {
+      font-size: 24px;
+    }
+  
+    .underline {
+      width: 48px;
+      height: 3px;
+    }
+  
+    .card {
+      padding: 24px;
+    }
+  
+    .iconWrapper {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+    }
+  
+    .icon {
+      width: 24px;
+      height: 24px;
+    }
+  
+    .cardTitle {
+      font-size: 20px;
+    }
+  
+    .description {
+      font-size: 15px;
+      margin-bottom: 20px;
+    }
+  
+    .button {
+      padding: 16px;
+      font-size: 15px;
+      border-radius: 14px;
+    }
+}

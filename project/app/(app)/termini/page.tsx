@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { SPORT_DOGADJAJI } from "./data";
-import TopMenu from "@/components/layout/TopMenu"; // Uvozimo tvoj novi Navbar s ikonama
+import PublicHeader from "@/components/layout/PublicHeader"; // Uvozimo tvoj novi Navbar s ikonama
 
 export default async function DogadjajiPage({ 
   searchParams 
@@ -20,7 +20,7 @@ export default async function DogadjajiPage({
   return (
     <div className="min-h-screen bg-white">
       {/* 1. NAVBAR - Tvoj novi TopMenu s ikonama i hamburgerom */}
-      <TopMenu />
+      <PublicHeader />
 
       {/* 2. GLAVNI SADRŽAJ */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -45,7 +45,7 @@ export default async function DogadjajiPage({
                 className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 group"
               >
                 {/* Ikona i Naslov */}
-                <div className="text-5xl mb-4 group-hover:scale-110 transition-transform">{item.ikona}</div>
+                <div className="text-5xl mb-4 group-hover:scale-110 transition-transform">X</div>
                 <h3 className="text-xl font-bold text-gray-800 uppercase tracking-tight">{item.aktivnost}</h3>
                 
                 {/* Detalji */}

@@ -1,0 +1,116 @@
+.section {
+    padding: 96px 0 80px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(6px);
+    border-top: 1px solid rgba(37, 99, 235, 0.08);
+}
+  
+.inner {
+    max-width: 64rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    text-align: center;
+}
+  
+  
+.header {
+    margin-bottom: 48px;
+}
+  
+.title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 12px;
+}
+  
+.underline {
+    display: block;
+    width: 72px;
+    height: 4px;
+    margin: 0 auto;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #2563eb, #7c3aed);
+}
+  
+  
+.description {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #475569;
+    max-width: 48rem;
+    margin: 0 auto 56px;
+}
+  
+  
+.features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-bottom: 64px;
+}
+
+.feature h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 8px;
+}
+  
+.feature p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #64748b;
+}
+  
+  
+.iconBox {
+    width: 56px;
+    height: 56px;
+    border-radius: 18px;
+    margin: 0 auto 16px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+.iconBox svg {
+    width: 26px;
+    height: 26px;
+    stroke-width: 2.2;
+}
+  
+ 
+.blue {
+    background: linear-gradient(135deg, #dbeafe, #eff6ff);
+    color: #2563eb;
+}
+  
+.purple {
+    background: linear-gradient(135deg, #ede9fe, #f5f3ff);
+    color: #7c3aed;
+}
+  
+.mix {
+    background: linear-gradient(135deg, #dbeafe, #ede9fe);
+    color: #2563eb;
+}
+  
+
+  
+@media (max-width: 768px) {
+    .features {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+  
+    .title {
+        font-size: 26px;
+    }
+  
+    .description {
+        font-size: 16px;
+        margin-bottom: 48px;
+    }
+}
