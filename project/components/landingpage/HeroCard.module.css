@@ -1,0 +1,148 @@
+.hero {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+  
+.container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+  
+.content {
+    position: relative;
+    z-index: 1;
+    max-width: 52rem;
+    margin: 0 auto;
+    text-align: center;
+  
+    padding-top: calc(var(--header-height) + 2rem);
+    padding-bottom: 7rem;
+  }
+  
+.blobBlue {
+    position: absolute;
+    top: 4em;
+    left: 2rem;
+    width: 22rem;
+    height: 22rem;
+    background: rgba(37, 99, 235, 0.35);
+    border-radius: 9999px;
+    filter: blur(90px);
+}
+  
+.blobPurple {
+    position: absolute;
+    bottom: 4rem;
+    right: 2rem;
+    width: 28rem;
+    height: 28rem;
+    background: rgba(124, 58, 237, 0.35);
+    border-radius: 9999px;
+    filter: blur(120px);
+}
+
+  
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  
+    padding: 0.4rem 1rem;
+    margin-bottom: 1.5rem;
+  
+    font-size: 0.875rem;
+    font-weight: 600;
+  
+    color: #2563eb;
+    background: linear-gradient(90deg, #dbeafe, #ede9fe);
+    border-radius: 999px;
+}
+  
+  
+.title {
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+}
+  
+.gradientText {
+    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-2));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+  
+  
+.subtitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-muted);
+    margin-bottom: 1rem;
+}
+  
+.description {
+    font-size: 1rem;
+    color: #6b7280;
+    max-width: 38rem;
+    margin: 0 auto 2.5rem;
+    line-height: 1.6;
+}
+  
+
+.cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  
+    padding: 0.9rem 1.8rem;
+    font-size: 1rem;
+    font-weight: 800;
+  
+    color: white;
+    text-decoration: none;
+    border-radius: 999px;
+  
+    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-2));
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.35);
+  
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+  
+.cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 28px 60px rgba(37, 99, 235, 0.45);
+}
+  
+
+ @media (max-width: 640px) {
+    .hero {
+        padding-bottom: 0px;
+        min-height: 100svh;
+      }
+    
+    .content {
+        padding-bottom: 5.5rem;
+    }
+  
+    .subtitle {
+      font-size: 1.1rem;
+    }
+
+    .blobBlue {
+        width: 18rem;
+        height: 18rem;
+        filter: blur(80px);
+      }
+    
+      .blobPurple {
+        width: 22rem;
+        height: 22rem;
+        filter: blur(90px);
+      }
+    
+}

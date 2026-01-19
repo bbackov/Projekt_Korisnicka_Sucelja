@@ -1,9 +1,9 @@
-import DashboardLayout from "@/components/layout/DashboardLayout";
+import HomeDashboardLayout from "@/components/layout/HomeDashboardLayout";
 import WelcomeCard from "@/components/home/WelcomeCard";
 
 export default function HomePage() {
   return (
-    <DashboardLayout>
+    <HomeDashboardLayout>
       {/* Kontejner s paddingom koji se prilagođava mobitelu (px-4) i desktopu (md:px-8) */}
       <main className="flex flex-col gap-6 p-4 md:p-8 max-w-7xl mx-auto w-full">
         
@@ -17,6 +17,6 @@ export default function HomePage() {
         </div>
 
       </main>
-    </DashboardLayout>
+    </HomeDashboardLayout>
   );
 }

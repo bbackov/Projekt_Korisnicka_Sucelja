@@ -15,7 +15,7 @@ export default async function DetaljiPage({ params }: { params: Promise<{ id: st
       <Link href="/termini" style={{ color: "#666" }}>← Povratak na popis</Link>
       
       <div style={{ marginTop: "30px", background: "white", padding: "40px", borderRadius: "25px", boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}>
-        <span style={{ fontSize: "60px" }}>{item.ikona}</span>
+        <span style={{ fontSize: "60px" }}>X</span>
         <h1 style={{ margin: "10px 0" }}>{item.aktivnost}</h1>
         <p style={{ background: "#e8f5e9", color: "#2e7d32", display: "inline-block", padding: "5px 15px", borderRadius: "20px", fontWeight: "bold" }}>
           BESPLATNO
