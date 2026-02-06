@@ -6,8 +6,109 @@
     margin: 0;
     list-style: none;
 }
+
+.home {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: stretch;
+}
+
+.home .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
   
+.home .aktivnost {
+    font-size: 18px;
+    font-weight: 700;
+}
   
+.home .badge {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 10px;
+    white-space: nowrap;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.home .badgeFull{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  
+    font-size: 11px;
+    padding: 6px 12px;
+    border-radius: 999px;
+  
+    background: #eac8d0;
+    color: #de2c47;
+    font-weight: 700;
+  }
+
+.home .meta {
+    margin-bottom: 6px;
+    display: grid;
+    grid-template-columns: auto auto;
+    row-gap: 8px;
+    column-gap: 16px;
+}
+
+.home .metaItem:nth-child(3) {
+    grid-column: 1 / -1;
+}
+
+  
+.home .metaBottom {
+    margin-top: 4px;
+}
+
+.home .item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    height: 100%;
+    position: relative;
+}
+  
+.home .info {
+    display: flex;
+    flex-direction: column;
+    flex: unset;
+    height: 100%;
+}
+
+.home .details {
+    margin-top: auto;
+    width: 100%;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    padding: 14px 0;
+    border-radius: 14px;
+  
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    color: white;
+}
+
+.home .opis {
+    display: -webkit-box;
+    line-clamp: 2;  
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.home .aktivnost {
+    padding-right: 130px; 
+}
+
 .item {
     position: relative;
     display: flex;
@@ -91,6 +192,20 @@
     border-radius: 999px;
     white-space: nowrap;
 }
+
+.badgeFull{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  
+    font-size: 11px;
+    padding: 6px 12px;
+    border-radius: 999px;
+  
+    background: #eac8d0;
+    color: #de2c47;
+    font-weight: 700;
+  }
   
   
 .opis {
@@ -227,5 +342,9 @@
     .details svg {
         width: 15px;
         height: 15px;
+    }
+
+    .home {
+        grid-template-columns: 1fr;
     }
 }

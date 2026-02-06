@@ -1,0 +1,142 @@
+/* OVERLAY */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(6px);
+    z-index: 50;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 88px; /* ⬅️ centrirano, nema scrolla u modalu */
+  }
+  
+  /* MODAL */
+  .modal {
+    width: 100%;
+    max-width: 520px;
+    max-height: 90vh;          /* ⬅️ malo manje */
+    background: #f8fafc;
+    border-radius: 26px;
+    padding-bottom: 20px;
+  
+    overflow: hidden;          /* ⬅️ KLJUČNO: nema scrollbar-a */
+  }
+  
+  /* HEADER */
+  .header {
+    position: relative;
+    padding: 20px 18px 12px;   /* ⬅️ manji padding */
+    text-align: center;
+  }
+  
+  /* CLOSE BUTTON */
+  .close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+  
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    font-size: 22px;
+    font-weight: 700;
+    text-decoration: none;
+  
+    color: #0f172a;
+    background: #e2e8f0;
+  
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  
+  .close:hover {
+    background: #cbd5f5;
+    transform: scale(1.05);
+  }
+  
+  /* ICON */
+  .iconWrapper {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    color: white;
+  }
+  
+  /* TITLE */
+  .title {
+    font-size: 20px;           /* ⬅️ mrvicu manje */
+    font-weight: 800;
+    color: #0f172a;
+  }
+  
+
+/* INFO ROW – vidljiv, ali flat */
+.infoCard {
+    display: flex;
+    align-items: center;          /* ⬅️ centriranje ikone */
+    gap: 14px;
+  
+    padding: 14px 16px;
+    border-radius: 14px;
+  
+    background: #f8fafc;          /* ⬅️ kao opis */
+  }
+  
+  /* VEĆA IKONA */
+  .infoCard svg {
+    width: 20px;
+    height: 20px;
+  
+    color: #6366f1;
+    flex-shrink: 0;
+  }
+  
+  /* TEKST */
+  .infoCard > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  /* LABEL */
+  .infoCard h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #64748b;
+    margin: 0;
+  }
+  
+  /* VRIJEDNOST */
+  .infoCard p {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+  }
+  
+  /* ACTION */
+  .action {
+    margin-top: 8px;
+  }
+  
+  /* DESKTOP */
+  @media (min-width: 768px) {
+    .overlay {
+      align-items: center;
+    }
+  
+    .modal {
+      max-width: 520px;
+      border-radius: 28px;
+    }
+  }

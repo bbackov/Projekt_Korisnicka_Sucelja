@@ -1,26 +1,19 @@
 .dashboard {
-    display: grid;
-    grid-template-columns: 240px 1fr 300px;
-    height: 100vh;
-    width: 100%;
-    background-color: #f7f7f8; 
-  }
-  
-  .sidebar {
-    background-color: #ffffff;
-    border-right: 1px solid #e5e7eb;
-    height: 100%;
-    display: flex;
-  }
-  
+  min-height: 100vh;
+  width: 100%;
+  background-color: #f7f7f8;
+}
+
+
+.main {
+  padding: 24px;
+  margin-left: 260px; 
+  overflow-y: auto;
+}
+
+
+@media (max-width: 767px) {
   .main {
-    padding: 24px;
-    overflow-y: auto;
+    margin-left: 0;
   }
-  
-  .right {
-    background-color: #ffffff;
-    border-left: 1px solid #e5e7eb;
-    padding: 24px;
-    overflow-y: auto;
-  }
+}

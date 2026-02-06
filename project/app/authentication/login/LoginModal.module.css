@@ -71,6 +71,46 @@
     margin-bottom: 20px;
   }
 
+  .helperText {
+    margin-top: 24px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #64748b;
+    text-align: center;
+  }
+  
+  /* REGISTER BUTTON */
+  .register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    width: 100%;
+    padding: 12px 16px;
+  
+    border-radius: 999px;
+  
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+  
+    color: #3b5bfd;
+    background: #f8fafc;
+  
+    border: 2px solid #e0e7ff;
+  
+    transition:
+      background 0.2s ease,
+      color 0.2s ease,
+      transform 0.15s ease;
+  }
+  
+  .register:hover {
+    background: #eef2ff;
+    color: #1d4ed8;
+    transform: translateY(-1px);
+  }
+
   @media (max-width: 480px) {
     .modal {
       padding: 28px 22px 24px;

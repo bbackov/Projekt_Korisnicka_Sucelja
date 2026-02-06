@@ -1,0 +1,61 @@
+/* centriranje gumba */
+.wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  /* ukloni default stil linka */
+  .link {
+    text-decoration: none;
+  }
+  
+  /* PRIMARNI GUMB – Pridruži se / Prijavi se */
+  .primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  
+    width: 100%;
+    max-width: 320px;
+  
+    padding: 14px 20px;
+    border-radius: 999px;
+  
+    font-size: 16px;
+    font-weight: 700;
+  
+    color: white;
+    background: linear-gradient(135deg, #3b5bfd, #7c3aed);
+  
+    border: none;
+    cursor: pointer;
+  
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(59, 91, 253, 0.35);
+  }
+  
+
+  
+  /* POPUNJENO */
+  .full {
+    width: 100%;
+    max-width: 320px;
+  
+    padding: 14px 20px;
+    border-radius: 999px;
+  
+    font-size: 16px;
+    font-weight: 700;
+  
+    background: #e5e7eb;
+    color: #6b7280;
+  
+    border: none;
+    cursor: not-allowed;
+  }

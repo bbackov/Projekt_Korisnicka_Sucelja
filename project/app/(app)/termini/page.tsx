@@ -1,118 +1,247 @@
+"use client";
+
+import { Plus ,ArrowRight,MapPin,Users,Clock,ArrowLeft} from "lucide-react";
+import { getDogadaji } from "./data";
+import {useState } from "react";
+import { useEffect } from "react";
+import { SportDogadjaj } from "./data";
+import { SPORT_META } from "@/components/common/ui/sportMeta";
+import { Icon } from "@iconify/react";
 import Link from "next/link";
-import { SPORT_DOGADJAJI } from "./data";
-import PublicHeader from "@/components/layout/PublicHeader"; // Uvozimo tvoj novi Navbar s ikonama
+import styles from "./termini.module.css"
+import { formatVrijeme,isThisWeek,isToday } from "@/util/toDate";
 
-export default async function DogadjajiPage({ 
-  searchParams 
-}: { 
-  searchParams: Promise<{ page?: string }> 
-}) {
-  const params = await searchParams;
+
+
+
+export default function TerminiPage(){
+
+
+  const [sports,setSports]=useState<SportDogadjaj[]>([]);
+  const [filter,setFilter]=useState({
+    activity:"",
+    sport:"All",
+    city:"All",
+    date:"All"
+  });
   
-  // Logika paginacije
-  const currentPage = Number(params.page) || 1;
-  const limit = 9; 
-  const start = (currentPage - 1) * limit;
-  const end = start + limit;
-  const matches = SPORT_DOGADJAJI.slice(start, end);
-  const totalPages = Math.ceil(SPORT_DOGADJAJI.length / limit);
+  const filteredSports = sports.filter((sport) => {
 
-  return (
-    <div className="min-h-screen bg-white">
-      {/* 1. NAVBAR - Tvoj novi TopMenu s ikonama i hamburgerom */}
-      <PublicHeader />
+    const matchesActivity =
+      filter.activity.trim() === "" ||
+      sport.aktivnost
+        .toLowerCase()
+        .includes(filter.activity.toLowerCase());
+  
 
-      {/* 2. GLAVNI SADRŽAJ */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        
-        {/* Naslov sekcije */}
-        <div className="mb-10">
-          <h1 className="text-3xl font-black text-gray-900 tracking-tight">
-            Aktivnosti u zajednici
-          </h1>
-          <p className="text-gray-500 font-medium">Pronađi ekipu i pridruži se sportskim terminima.</p>
-        </div>
-        
-        {/* Grid s karticama - Responzivan: 1 kolona mobitel, 3 desktop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {matches.map((item) => {
-            const isFull = item.prijavljeno >= item.kapacitet;
-            const progressWidth = (item.prijavljeno / item.kapacitet) * 100;
+    const matchesCity =
+      filter.city === "All" ||
+      sport.lokacija.toLowerCase().includes(filter.city.toLowerCase());
+  
+ 
+    const matchesSport =
+      filter.sport === "All" ||
+      sport.tip === filter.sport;
 
-            return (
-              <div 
-                key={item.id} 
-                className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 group"
-              >
-                {/* Ikona i Naslov */}
-                <div className="text-5xl mb-4 group-hover:scale-110 transition-transform">X</div>
-                <h3 className="text-xl font-bold text-gray-800 uppercase tracking-tight">{item.aktivnost}</h3>
-                
-                {/* Detalji */}
-                <div className="mt-3 space-y-1">
-                  <p className="text-gray-500 text-sm flex items-center gap-2">📍 {item.lokacija}</p>
-                  <p className="text-blue-600 font-bold text-sm flex items-center gap-2">🕒 {item.vrijeme}</p>
-                </div>
-                
-                {/* Progress Bar (Tvoja originalna logika) */}
-                <div className="mt-6">
-                  <div className="flex justify-between text-[10px] font-black uppercase text-gray-400 mb-2">
-                    <span>Popunjenost</span>
-                    <span>{item.prijavljeno}/{item.kapacitet}</span>
-                  </div>
-                  <div className="bg-gray-100 h-2 rounded-full overflow-hidden">
-                    <div 
-                      className={`h-full transition-all duration-500 ${isFull ? 'bg-red-500' : 'bg-blue-600'}`}
-                      style={{ width: `${progressWidth}%` }}
-                    />
-                  </div>
-                </div>
-
-                {/* Gumb za akciju */}
-                <Link 
-                  href={`/termini/${item.id}`} 
-                  className={`block w-full mt-6 text-center py-4 rounded-2xl font-black text-sm transition-all active:scale-95 ${
-                    isFull 
-                    ? "bg-gray-100 text-gray-400 cursor-not-allowed" 
-                    : "bg-gray-900 text-white hover:bg-blue-600 shadow-lg shadow-gray-900/10"
-                  }`}
-                >
-                  {isFull ? "POPUNJENO - VIDI DETALJE" : "PRIDRUŽI SE"}
-                </Link>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* --- KONTROLE PAGINACIJE --- */}
-        <div className="mt-16 flex flex-col sm:flex-row justify-center items-center gap-6">
-          {currentPage > 1 ? (
-            <Link 
-              href={`/termini?page=${currentPage - 1}`} 
-              className="px-6 py-2 border border-gray-200 rounded-xl font-bold text-sm hover:bg-gray-50 transition"
-            >
-              ← Prethodna
-            </Link>
-          ) : (
-            <span className="px-6 py-2 border border-gray-50 rounded-xl text-gray-300 font-bold text-sm cursor-not-allowed">← Prethodna</span>
-          )}
-
-          <div className="font-bold text-sm text-gray-900 bg-gray-100 px-4 py-2 rounded-full">
-            Stranica {currentPage} od {totalPages}
-          </div>
-
-          {currentPage < totalPages ? (
-            <Link 
-              href={`/termini?page=${currentPage + 1}`} 
-              className="px-6 py-2 border border-gray-200 rounded-xl font-bold text-sm hover:bg-gray-50 transition"
-            >
-              Sljedeća →
-            </Link>
-          ) : (
-            <span className="px-6 py-2 border border-gray-50 rounded-xl text-gray-300 font-bold text-sm cursor-not-allowed">Sljedeća →</span>
-          )}
-        </div>
-      </main>
-    </div>
+    const matchesDate =
+      filter.date === "All" ||
+      (filter.date === "today" && isToday(new Date(sport.vrijeme))) ||
+      (filter.date === "week" && isThisWeek(new Date(sport.vrijeme)));
+  
+    return matchesActivity && matchesCity && matchesSport&& matchesDate;
+  });
+  
+  const [currentPage,setCurrentPage]=useState(1);
+  const limitItems=9;
+  const totalPages=Math.ceil(filteredSports.length/limitItems);
+  const start = (currentPage - 1) * limitItems;
+  const items=filteredSports.slice(start,start+limitItems);
+  const uniqueSports = Array.from(
+    new Set(sports.map(sport => sport.tip))
   );
+
+  const uniqueCity = Array.from(
+    new Set(sports.map(sport => sport.lokacija))
+  );
+  const [filterOpen,SetOpen]=useState(false)
+
+  const handleFilter=(event:React.ChangeEvent<HTMLInputElement>| React.ChangeEvent<HTMLSelectElement>)=>{
+    const {name,value}=event.target;
+    setFilter(prev=>({
+      ...prev,
+      [name]:value
+    }))
+    setCurrentPage(1);
+
+    if(value===""){
+      SetOpen(false);
+    }
+    else{
+      SetOpen(true);
+    }
+  }
+
+  const handleDateFilter = (type: "today" | "week") => {
+    if(type===filter.date){
+      setFilter(prev => ({
+        ...prev,
+        date: "All"
+      }));
+    }else{
+      setFilter(prev => ({
+        ...prev,
+        date: type
+      }));
+    }
+    setCurrentPage(1);
+    SetOpen(type !== filter.date);
+  };
+
+
+  const handleResetFilter=()=>{
+    setFilter({
+      activity:"",
+      sport:"All",
+      city:"All",
+      date:"All"
+    })
+    
+    setCurrentPage(1);
+    SetOpen(false);
+  }
+
+  
+
+  useEffect(()=>{
+
+    const loadSports=async()=>{
+      const data=await getDogadaji();
+      setSports(data);
+    }
+
+    loadSports();
+  },[]);
+
+
+  return(
+    <main className={styles.page}>
+      <div className={styles.headerTop}>
+        <div className={styles.headerText}>
+          <h1>Aktivnosti u zajednici</h1>
+          <p>Pronađi ekipu i pridruži se sportskim terminima ili kreiraj svoj termin.</p>
+        </div>
+        <div className={styles.headerActions}>
+          <Link href={"ssss"}className={styles.createButton}><Plus/> Kreiraj novi termin</Link>
+        </div>
+        <div className={styles.filtersWrapper}>
+          <div className={styles.filters}>
+            <div className={styles.searchGroup}>
+              <label htmlFor="search-activities">Pretraži aktivnost</label>
+              <input
+                id="search-activities"
+                name="activity"
+                type="text"
+                placeholder="Pretraži aktivnosti..."
+                onChange={handleFilter}
+                value={filter.activity ?? ""}
+              />
+              </div>
+              <div className={styles.filterControls}>
+                <button className={`${styles.filterButton} ${filter.date === "today" ? styles.active : ""}`} onClick={() => handleDateFilter("today")}>Danas</button>
+                <button className={`${styles.filterButton} ${filter.date === "week" ? styles.active : ""}`} onClick={() => handleDateFilter("week")}>Ovaj tjedan</button>
+                <select
+                  name="sport"
+                  value={filter.sport}
+                  onChange={handleFilter}
+                  className={styles.select}
+                >
+                  <option value="All">Svi sportovi</option>
+                  {uniqueSports.map((sport)=>{
+                    return(<option key={sport} value={sport}>{sport}</option>);
+                  })}
+                </select>
+
+                <select
+                  name="city"
+                  value={filter.city}
+                  onChange={handleFilter}
+                  className={styles.select}
+                >
+                  <option value="All">Sve lokacije</option>
+                  {uniqueCity.map((city)=>{
+                    return(<option key={city} value={city}>{city}</option>);
+                  })}
+                </select>
+
+                {filterOpen&&<button onClick={handleResetFilter}  className={styles.clearFilters}>Očisti filtere</button>}
+              </div>
+            </div>
+        </div>
+      </div>
+      <div className={styles.grid}>
+        {items.map((sport)=>{
+          const meta = SPORT_META[sport.tip] ?? SPORT_META.OTHER;
+          const full=(sport.prijavljeno / sport.kapacitet) ===1;
+          return(
+            <div key={sport.id} className={styles.card}>
+              <div className={styles.iconWrapper} style={{ background: meta.gradient }}>
+                <Icon icon={meta.icon} width={28} className={styles.icon} />
+              </div>
+            
+              <div className={styles.info}>
+                <div className={styles.cardHeader}>
+                    <h4 className={styles.aktivnost}>{sport.aktivnost}</h4>
+                    <span className={full ? `${styles.badgeFull}` : `${styles.badge}`}>{full ? "Popunjeno" : "Odaberi aktivnost"}</span>
+                </div>
+            
+                <p className={styles.opis}>{sport.opis}</p>
+            
+                <div className={styles.meta}>
+                  <div className={styles.metaItem}>
+                    <MapPin/>
+                    <p>{sport.lokacija}</p>
+                  </div>
+                  <div className={styles.metaItem}>
+                    <Users/>
+                    <p>{sport.prijavljeno}/{sport.kapacitet}</p>
+                  </div>
+                  <div className={styles.metaBottom}>
+                    <div className={styles.metaItem}>
+                      <Clock/> 
+                      <p>{formatVrijeme(sport.vrijeme)}</p>
+                    </div>
+                  </div>
+                </div>
+            
+                <Link href={`/termini/${sport.id}`} className={styles.details}>
+                    <p>Detalji</p>
+                    <ArrowRight/>
+                </Link>
+              </div>    
+            </div>
+          );
+        })}
+        </div>
+        <div className={styles.pagination}>
+          <div className={styles.side}>
+            {currentPage>1 &&(
+            <button onClick={()=>setCurrentPage(prev=>prev-1)} className={styles.pageButton}>
+              <ArrowLeft/> Prethodna
+            </button>
+            )}
+          </div> 
+
+          <p className={styles.pageInfo}> Stranica {currentPage} od {totalPages}</p>
+          <div className={styles.side}>
+            {currentPage<totalPages &&(
+            <button onClick={()=>setCurrentPage(prev=>prev+1)} className={styles.pageButton}>
+              <ArrowRight/> Sljedeća
+            </button>
+          )}
+          </div>
+        </div>
+    </main>
+
+  );
+
 }

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { loginValidation } from "@/util/loginValidation";
 import { LoginUser } from "@/app/services/auth";
 import styles from "./LoginForm.module.css"
-
+import { useAuth } from "../auth/AuthContext";
 
 type Props={
     onSuccess:()=>void
@@ -13,6 +13,7 @@ type Props={
 
 export default function LoginForm({onSuccess}:Props) {
 
+  const { login } = useAuth();
   const [loginInfo,setLoginInfo]=useState({
     email:"",
     password:"",
@@ -65,7 +66,7 @@ export default function LoginForm({onSuccess}:Props) {
 
         {message && <p className={styles.error}>{message}</p>}
 
-        <button type="submit" disabled={loading} className={styles.button}>{loading ? "Logiranje" : "Login"}</button>
+        <button type="submit" disabled={loading} className={styles.button} onClick={login}>{loading ? "Logiranje" : "Login"}</button>
       </form>
   )
 

@@ -1,83 +1,219 @@
-.sidebar {
-    height: 100vh; /* Neka bude cijela visina ekrana */
-    display: flex;
-    flex-direction: column;
-    padding: 24px 16px;
-    background-color: #ffffff; /* Čista bijela pozadina */
-    border-right: 1px solid #f3f4f6; /* Suptilna granica umjesto sjene */
-}
+
+.mobileToggle {
+    position: fixed;
+    top: 24px;
+    right: 16px;
+    z-index: 50;
   
-.logo {
-    font-size: 22px;
-    font-weight: 900; /* Ekstremno debelo za logo */
-    color: #111827; /* Gray-900 */
-    margin-bottom: 40px;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    padding: 8px;
+  
     display: flex;
     align-items: center;
-    gap: 10px;
-    text-transform: uppercase; /* MatchTrack neka bude velikim slovima */
-    letter-spacing: -0.05em;
+    justify-content: center;
 }
-
-/* Stil za ikonu utega unutar loga */
-.logo svg {
-    color: #2563eb; /* Blue-600 (ista plava kao na gumbima termina) */
+  
+  
+@media (min-width: 768px) {
+    .mobileToggle {
+      display: none;
+    }
 }
+  
+  
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+  
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+  
+  
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 40;
+  
+    width: 260px;
+    height: 100vh;
+  
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  
+    border-right: 1px solid rgba(0, 0, 0, 0.06);
+  
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+  
+  
+.open {
+    transform: translateX(0);
+}
+  
+ 
+@media (min-width: 768px) {
+    .sidebar {
+      transform: translateX(0);
+    }
+}
+  
 
-.nav {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.inner {
+    height: 100%;
     display: flex;
-    flex: 1;
     flex-direction: column;
-    gap: 12px; /* Malo veći razmak između linkova */
 }
-
+  
+  
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+  
+  
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  
+    font-size: 20px;
+    font-weight: 700;
+}
+  
+.logoIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    color: white;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+  
+.bell {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #334155;
+}
+  
+ 
+.nav {
+    flex: 1;
+    padding: 16px;
+  
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+  
 .link {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 16px;
-    border-radius: 12px; /* Zaobljenije kao na terminima */
-    color: #6b7280; /* Gray-500 (nenametljiva siva za neaktivne) */
-    text-decoration: none;
-    font-weight: 700; /* Deblji font za sve linkove */
-    transition: all 0.2s ease;
-}
-
-.link:hover {
-    background-color: #f9fafb;
-    color: #111827;
-}
-
-/* AKTIVNI STIL - Identifikacija s plavom bojom termina */
-.active {
-    background-color: #eff6ff; /* Blue-50 (jako svijetlo plava) */
-    color: #2563eb !important; /* Blue-600 (plavi tekst) */
-    font-weight: 800;
-}
-
-.logout {
-    margin-top: auto;
-    background: none;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    text-align: left;
-    padding: 12px 16px;
+  
+    padding: 12px 14px;
     border-radius: 12px;
-    color: #9ca3af; /* Gray-400 (svjetlija siva za logout) */
-    font-weight: 700;
-    transition: all 0.2s ease;
+    text-decoration: none;
+  
+    color: #334155;
+    font-weight: 500;
+  
+    transition: background 0.2s ease, color 0.2s ease;
+}
+  
+.link:hover {
+    background: #eff6ff;
+    color: #2563eb;
+}
+  
+.active {
+    background: linear-gradient(90deg, #eff6ff, #f5f3ff);
+    color: #2563eb;
+}
+  
+ 
+.footer {
+    padding: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+  
+  
+.userCard {
     display: flex;
     align-items: center;
     gap: 12px;
-    text-transform: uppercase; /* Velika slova za ozbiljniji izgled */
-    font-size: 13px;
+  
+    padding: 12px;
+    border-radius: 14px;
+  
+    background: linear-gradient(90deg, #eff6ff, #f5f3ff);
+    margin-bottom: 12px;
 }
-
+  
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    color: white;
+    font-weight: 700;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+.name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f172a;
+}
+  
+.email {
+    font-size: 12px;
+    color: #64748b;
+}
+  
+  
+.logout {
+    width: 100%;
+  
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  
+    background: none;
+    border: none;
+    cursor: pointer;
+  
+    padding: 10px 12px;
+    border-radius: 12px;
+  
+    color: #334155;
+    font-weight: 500;
+  
+    transition: background 0.2s ease, color 0.2s ease;
+}
+  
 .logout:hover {
-    background-color: #fef2f2; /* Red-50 (lagana crvena na hover) */
-    color: #dc2626; /* Red-600 */
+    background: #fee2e2;
+    color: #dc2626;
 }
