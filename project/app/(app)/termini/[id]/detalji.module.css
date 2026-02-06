@@ -21,7 +21,7 @@
     border-radius: 26px;
     padding-bottom: 20px;
   
-    overflow: hidden;          /* ⬅️ KLJUČNO: nema scrollbar-a */
+    overflow-y: auto;          /* ⬅️ KLJUČNO: nema scrollbar-a */
   }
   
   /* HEADER */
