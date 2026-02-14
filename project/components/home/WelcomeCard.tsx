@@ -1,32 +1,36 @@
 "use client";
+
 import Link from "next/link";
-import Card from "../common/ui/Card";
+import styles from "./WelcomeCard.module.css";
 
 export default function WelcomeCard() {
   return (
-    /* 'hidden' -> sakriveno na mobitelu i svemu do 1024px
-       'lg:block' -> pojavljuje se tek kad je ekran širi od 1024px
-    */
-    <div className="hidden lg:block">
-      <Card>
-        <div className="flex flex-col gap-4 p-8 items-start text-left">
-          
-          <h1 className="text-3xl font-bold text-gray-900 leading-tight">
-            Dobrodošao 👋
+    <section className={styles.banner}>
+      <div className={styles.content}>
+        <div className={styles.text}>
+          <p className={styles.greeting}>Dobrodošao 👋</p>
+
+          <h1 className={styles.title}>
+            Pronađi svoj sljedeći <span>sportski izazov</span>
           </h1>
 
-          <p className="text-base text-gray-600 max-w-[500px]">
-            Pronađi sportske aktivnosti u svojoj blizini i pridruži se zajednici.
+          <p className={styles.subtitle}>
+            Pronađi sportske aktivnosti u svojoj blizini i
+            pridruži se zajednici istomišljenika.
           </p>
 
-          <Link 
-            href="/termini" 
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all duration-200"
-          >
-            Pogledaj termine
-          </Link>
+          <div className={styles.actions}>
+            <Link href="/termini" className={styles.primary}>
+              Pogledaj termine
+            </Link>
+
+            <Link href="/termini/novo" className={styles.secondary}>
+              Kreiraj događaj
+            </Link>
+          </div>
         </div>
-      </Card>
-    </div>
+        <div className={styles.visual} />
+      </div>
+    </section>
   );
 }

@@ -1,22 +1,20 @@
 import HomeDashboardLayout from "@/components/layout/HomeDashboardLayout";
 import WelcomeCard from "@/components/home/WelcomeCard";
+import QuickStats from "@/components/home/QuickStats";
+import QuickActionCard from "@/components/home/QuickActionCards";
+import styles from "./home.module.css"
 
 export default function HomePage() {
   return (
-    <HomeDashboardLayout>
-      {/* Kontejner s paddingom koji se prilagođava mobitelu (px-4) i desktopu (md:px-8) */}
-      <main className="flex flex-col gap-6 p-4 md:p-8 max-w-7xl mx-auto w-full">
-        
+      <main>
         <WelcomeCard />
-
-        {/* Grid sustav koji je na mobitelu 1 stupac, a na desktopu 2 stupca */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-           {/* Ovdje će ići tvoji budući kartice */}
-           {/* <NextBookingCard /> */}
-           {/* <StatsOverview /> */}
-        </div>
-
+        <QuickStats />
+        <section className={styles.recommended}>
+            <h2 className={styles.title}>
+                Preporučeno za tebe 
+            </h2>
+            <QuickActionCard  variant="home"/>
+        </section>
       </main>
-    </HomeDashboardLayout>
   );
 }

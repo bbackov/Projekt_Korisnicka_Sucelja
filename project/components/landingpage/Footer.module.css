@@ -28,6 +28,7 @@
       #2563eb,
       #7c3aed
     );
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
