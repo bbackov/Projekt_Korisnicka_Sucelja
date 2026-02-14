@@ -23,7 +23,7 @@ export default function Sidebar() {
 
   const links = [
     { href: "/home", label: "Home", icon: Home },
-    { href: "/termini", label: "Termini", icon: Calendar },
+    { href: "/termini", label: "Events", icon: Calendar },
     { href: "/venues", label: "Venues", icon: MapPin },
     { href: "/friends", label: "Friends", icon: Users },
   ];
