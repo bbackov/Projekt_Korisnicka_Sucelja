@@ -1,89 +1,67 @@
-const dummyUsers = [
-    {
-      firstName: "Ivan",
-      lastName: "Horvat",
-      email: "ivan.horvat@test.com",
-      password: "Password123",
-    },
-    {
-      firstName: "Ana",
-      lastName: "Kovač",
-      email: "ana.kovac@test.com",
-      password: "Password123",
-    },
-    {
-      firstName: "Marko",
-      lastName: "Marić",
-      email: "marko.maric@test.com",
-      password: "Password123",
-    },
-    {
-      firstName: "Petra",
-      lastName: "Novak",
-      email: "petra.novak@test.com",
-      password: "Password123",
-    },
-    {
-      firstName: "Luka",
-      lastName: "Babić",
-      email: "luka.babic@test.com",
-      password: "Password123",
-    },
-    {
-        firstName: "a",
-        lastName: "a",
-        email: "a@test.com",
-        password: "Password123",
+import { createClient } from "@/lib/supabase/client";
+
+type RegisterData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
+
+type RegisterResult = { success: true } | { success: false; error: string };
+
+type LoginData = {
+  email: string;
+  password: string;
+};
+
+type LoginResult = { success: true } | { success: false; error: string };
+
+export async function RegisterUser(data: RegisterData): Promise<RegisterResult> {
+  const supabase = createClient();
+
+  const { error } = await supabase.auth.signUp({
+    email: data.email,
+    password: data.password,
+    options: {
+      emailRedirectTo:
+        process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ||
+        `${window.location.origin}/home`,
+      data: {
+        first_name: data.firstName,
+        last_name: data.lastName,
       },
-  ];
+    },
+  });
 
-type RegisterData={
-    firstName:string,
-    lastName: string,
-    email: string,
-    password: string,
-    confirmPassword: string
-  };
+  if (error) {
+    // Handle duplicate user
+    if (error.message.includes("already registered") || error.message.includes("already been registered")) {
+      return { success: false, error: "Korisnik s ovim emailom vec postoji" };
+    }
+    return { success: false, error: error.message };
+  }
 
-type RegiserResult= | {success:true}
-                    | {success:false, error:string};
-
-type LoginData={
-    email: string,
-    password: string
-  };
-
-type LoginResult= | {success:true}
-                    | {success:false, error:string};
-                    
-export function RegisterUser(data:RegisterData):Promise<RegiserResult>{
-
-    return new Promise((resolve)=>{
-        setTimeout(()=> {
-            for (let user of dummyUsers) {
-                if (user.email === data.email) {
-                    resolve({success:false,error:"Email vec postioji"});
-                    return;
-                }
-              }
-         
-            resolve({success:true});
-            
-        },1000);
-    });
+  return { success: true };
 }
 
-export function LoginUser (data:LoginData):Promise<LoginResult>{
+export async function LoginUser(data: LoginData): Promise<LoginResult> {
+  const supabase = createClient();
 
-    return new Promise((resolve)=>{
-        setTimeout(()=> {
-            for(let user of dummyUsers){
-                if(user.email===data.email && user.password===data.password){
-                    resolve({success:true});
-                    return;
-                }
-            }
-            resolve({success:false,error:"Email ili lozinka su krivi"});
-        },1000);
-    });
+  const { error } = await supabase.auth.signInWithPassword({
+    email: data.email,
+    password: data.password,
+  });
+
+  if (error) {
+    if (error.message === "Invalid login credentials") {
+      return { success: false, error: "Email ili lozinka su krivi" };
+    }
+    if (error.message.includes("Email not confirmed")) {
+      return { success: false, error: "Potvrdite email prije prijave" };
+    }
+    return { success: false, error: error.message };
+  }
+
+  return { success: true };
 }

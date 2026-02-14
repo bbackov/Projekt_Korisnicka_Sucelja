@@ -1,11 +1,23 @@
 "use client";
 
-import { AuthProvider,useAuth } from "../authentication/auth/AuthContext";
+import { useAuth } from "../authentication/auth/AuthContext";
 import HomeDashboardLayout from "@/components/layout/HomeDashboardLayout";
 import PublicHeader from "@/components/layout/PublicHeader";
 
-function LayoutContent({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated } = useAuth();
+export default function AppLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh" }}>
+        <p>Ucitavanje...</p>
+      </div>
+    );
+  }
 
   if (isAuthenticated) {
     return (
@@ -20,17 +32,5 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
       <PublicHeader />
       <main>{children}</main>
     </>
-  );
-}
-
-export default function AppLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <AuthProvider>
-      <LayoutContent>{children}</LayoutContent>
-    </AuthProvider>
   );
 }
