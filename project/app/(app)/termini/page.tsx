@@ -68,6 +68,11 @@ export default function TerminiPage(){
     new Set(sports.map(sport => sport.lokacija))
   );
   const [filterOpen,SetOpen]=useState(false)
+  const [registeredIds, setRegisteredIds] = useState<number[]>([]);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [createOpen, setCreateOpen] = useState(false);
+  const [loadingRegister, setLoadingRegister] = useState<number | null>(null);
+  const [loadingUnregister, setLoadingUnregister] = useState<number | null>(null);
 
   const handleFilter=(event:React.ChangeEvent<HTMLInputElement>| React.ChangeEvent<HTMLSelectElement>)=>{
     const {name,value}=event.target;
@@ -141,13 +146,6 @@ export default function TerminiPage(){
     loadSports();
   },[]);
 
-  const [registeredIds, setRegisteredIds] = useState<number[]>([]);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [createOpen, setCreateOpen] = useState(false);
-  const [loadingRegister, setLoadingRegister] = useState<number | null>(null);
-  const [loadingUnregister, setLoadingUnregister] = useState<number | null>(null);
-
-
   return(
     <main className={styles.page}>
       {createOpen && (
@@ -165,7 +163,18 @@ export default function TerminiPage(){
           <p>Pronađi ekipu i pridruži se sportskim terminima ili kreiraj svoj termin.</p>
         </div>
         <div className={styles.headerActions}>
-          <button onClick={() => setCreateOpen(true)} className={styles.createButton}><Plus/> Kreiraj novi termin</button>
+          <button
+            onClick={() => {
+              if (!loggedIn) {
+                window.location.href = "/authentication/login";
+                return;
+              }
+              setCreateOpen(true);
+            }}
+            className={styles.createButton}
+          >
+            <Plus /> Kreiraj novi termin
+          </button>
         </div>
         <div className={styles.filtersWrapper}>
           <div className={styles.filters}>

@@ -1,3 +1,5 @@
+"use client";
+
 import WelcomeCard from "@/components/home/WelcomeCard";
 import QuickStats from "@/components/home/QuickStats";
 import QuickActionCard from "@/components/home/QuickActionCards";

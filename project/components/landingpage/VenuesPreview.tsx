@@ -27,7 +27,7 @@ export default function VenuesPreview(){
                         <span>dvorana</span>, <span>igrališta</span> i{" "}
                         <span>vanjskih terena</span> na kojima se organiziraju termini.
                     </p>
-                    <Link href="/termini" className={styles.button}>
+                    <Link href="/venues" className={styles.button}>
                         Pogledaj lokacije
                     </Link>
                 </div>
