@@ -105,8 +105,9 @@
   
     font-weight: 600;
     text-decoration: none;
-  
     border: 1px solid rgba(37, 99, 235, 0.25);
+    cursor: pointer;
+  
     transition: background 0.15s ease, transform 0.15s ease;
 }
   
@@ -119,6 +120,10 @@
 .visual {
     position: relative;
     border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   
     background: radial-gradient(
         circle at top left,
@@ -132,6 +137,51 @@
       );
   
     min-height: 220px;
+}
+
+.visualCard {
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 16px;
+    padding: 14px;
+    backdrop-filter: blur(8px);
+}
+
+.visualLabel {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #2563eb;
+}
+
+.visualValue {
+    margin-top: 4px;
+    font-size: 24px;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.visualHint {
+    margin-top: 2px;
+    font-size: 13px;
+    color: #475569;
+}
+
+.visualTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(191, 219, 254, 0.9);
+    color: #1e40af;
+    font-size: 12px;
+    font-weight: 700;
 }
   
  

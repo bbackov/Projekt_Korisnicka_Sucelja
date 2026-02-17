@@ -20,17 +20,16 @@ export default function RegisterModal() {
 
   return (
     <div className={styles.overlay} onClick={closeModal}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-        <button className={styles.close} onClick={closeModal}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()} suppressHydrationWarning={true}>
+        <button className={styles.close} onClick={closeModal} suppressHydrationWarning={true}>
           ✕
         </button>
 
         {registered ? (
           <div style={{ textAlign: "center", padding: "2rem 1rem" }}>
             <h2 className={styles.title}>Registracija uspjesna!</h2>
-            <p style={{ color: "var(--color-muted)", marginTop: "1rem", lineHeight: 1.6 }}>
-              Potvrdite svoj email klikom na link koji smo vam poslali. Nakon toga se mozete prijaviti.
-            </p>
+
+          
             <Link
               href="/authentication/login"
               style={{

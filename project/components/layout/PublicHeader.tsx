@@ -67,7 +67,7 @@ export default function PublicHeader() {
                 <UserPlus className={styles.mobileRegisterIcon} size={18} />
                 <span>Register</span>
               </Link>
-              <button className={styles.mobileToggle} onClick={() => setOpen((v) => !v)}>
+              <button className={styles.mobileToggle} onClick={() => setOpen((v) => !v)} aria-label="Otvori glavni izbornik">
                 {open ? <X size={22} /> : <Menu size={22} />}
               </button>
             </div>

@@ -48,14 +48,21 @@ export const SPORT_DOGADJAJI: SportDogadjaj[] = [
 ];
 
 
-export async function getDogadaji():Promise<SportDogadjaj[]>{
-
-  return new Promise((resolve)=>{
-    
-    setTimeout(()=>{
-      resolve(SPORT_DOGADJAJI);
-    },1000);
-
-  })
-  
+export async function getDogadaji(): Promise<SportDogadjaj[]> {
+  try {
+    const res = await fetch('/api/events', { cache: 'no-store' })
+    if (!res.ok) {
+      console.warn('API returned error, falling back to local data')
+      return SPORT_DOGADJAJI
+    }
+    const json = await res.json()
+    if (Array.isArray(json.events) && json.events.length > 0) {
+      return json.events as SportDogadjaj[]
+    }
+    console.warn('API returned empty events, falling back to local data')
+    return SPORT_DOGADJAJI
+  } catch (err) {
+    console.warn('Failed to fetch events from API, using local data:', err)
+    return SPORT_DOGADJAJI
+  }
 }

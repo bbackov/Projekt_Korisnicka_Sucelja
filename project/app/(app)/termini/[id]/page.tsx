@@ -6,11 +6,29 @@ import { Icon } from "@iconify/react";
 import { MapPin,Users,Clock,User2,FileText} from "lucide-react";
 import { formatVrijeme } from "@/util/toDate";
 import { JoinButton } from "./JoinButton";
+import { createClient as createServiceClient } from "@supabase/supabase-js";
 import styles from "./detalji.module.css"
 
 export default async function DetaljiPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const item = SPORT_DOGADJAJI.find(t => t.id === Number(id));
+  const eventId = Number(id);
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  let item = null as (typeof SPORT_DOGADJAJI)[number] | null;
+  if (supabaseUrl && serviceRoleKey) {
+    const svc = createServiceClient(supabaseUrl, serviceRoleKey);
+    const { data, error } = await svc.from("events").select("*").eq("id", eventId).single();
+    item = (data as (typeof SPORT_DOGADJAJI)[number] | null) ?? null;
+    if (error || !item) {
+      notFound();
+    }
+  }
+
+  if (!supabaseUrl || !serviceRoleKey) {
+    item = SPORT_DOGADJAJI.find(t => t.id === eventId) ?? null;
+  }
+
   if (!item) notFound();
   const meta = SPORT_META[item.tip] ?? SPORT_META.OTHER;
   const full=item.prijavljeno >= item.kapacitet;
@@ -75,7 +93,7 @@ export default async function DetaljiPage({ params }: { params: Promise<{ id: st
         </div>
 
         <div className={styles.action}>
-          <JoinButton full={full} />
+          <JoinButton full={full} eventId={item.id} />
         </div>
         </div>
       </div>

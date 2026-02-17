@@ -35,7 +35,7 @@ export default function Sidebar() {
 
   return (
     <>
-      <button className={styles.mobileToggle} onClick={() => setOpen((v) => !v)}>
+      <button className={styles.mobileToggle} onClick={() => setOpen((v) => !v)} aria-label="Otvori izbornik">
         {open ? <X size={22} /> : <Menu size={22} />}
       </button>
 

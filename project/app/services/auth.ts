@@ -17,34 +17,41 @@ type LoginData = {
 
 type LoginResult = { success: true } | { success: false; error: string };
 
+/**
+ * Registers a new user with Supabase, without requiring email confirmation.
+ */
 export async function RegisterUser(data: RegisterData): Promise<RegisterResult> {
-  const supabase = createClient();
+  try {
+    const res = await fetch('/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        password: data.password,
+      }),
+    })
 
-  const { error } = await supabase.auth.signUp({
-    email: data.email,
-    password: data.password,
-    options: {
-      emailRedirectTo:
-        process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ||
-        `${window.location.origin}/home`,
-      data: {
-        first_name: data.firstName,
-        last_name: data.lastName,
-      },
-    },
-  });
+    const json = await res.json()
 
-  if (error) {
-    // Handle duplicate user
-    if (error.message.includes("already registered") || error.message.includes("already been registered")) {
-      return { success: false, error: "Korisnik s ovim emailom vec postoji" };
+    if (!res.ok || json?.success === false) {
+      const msg = json?.error ?? 'Neuspjela registracija'
+      if (typeof msg === 'string' && (msg.includes('already registered') || msg.includes('already been registered') || msg.includes('already exists'))){
+        return { success: false, error: 'Korisnik s ovim emailom vec postoji' }
+      }
+      return { success: false, error: String(msg) }
     }
-    return { success: false, error: error.message };
-  }
 
-  return { success: true };
+    return { success: true }
+  } catch (err: any) {
+    return { success: false, error: err?.message ?? String(err) }
+  }
 }
 
+/**
+ * Logs in an existing user using email and password.
+ */
 export async function LoginUser(data: LoginData): Promise<LoginResult> {
   const supabase = createClient();
 
@@ -54,12 +61,11 @@ export async function LoginUser(data: LoginData): Promise<LoginResult> {
   });
 
   if (error) {
+    // Check invalid credentials
     if (error.message === "Invalid login credentials") {
       return { success: false, error: "Email ili lozinka su krivi" };
     }
-    if (error.message.includes("Email not confirmed")) {
-      return { success: false, error: "Potvrdite email prije prijave" };
-    }
+    // Removed email not confirmed check
     return { success: false, error: error.message };
   }
 

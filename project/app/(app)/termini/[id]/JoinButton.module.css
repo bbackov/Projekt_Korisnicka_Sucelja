@@ -35,15 +35,49 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
   
-  .primary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 10px 20px rgba(59, 91, 253, 0.35);
-  }
-  
+.primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(59, 91, 253, 0.35);
+}
+
+.unregister {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  width: 100%;
+  max-width: 320px;
+
+  padding: 14px 20px;
+  border-radius: 999px;
+  border: none;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  color: #ffffff;
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.unregister:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(249, 115, 22, 0.4);
+}
+
+.unregister:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 
   
   /* POPUNJENO */
-  .full {
+.full {
     width: 100%;
     max-width: 320px;
   

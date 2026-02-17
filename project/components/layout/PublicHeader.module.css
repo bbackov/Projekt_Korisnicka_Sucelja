@@ -170,10 +170,13 @@
 
 .mobileToggle {
     display: none;
-    background: none;
-    border: none;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-2));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    padding: 0.45rem;
+    color: #ffffff;
     cursor: pointer;
-    color: var(--color-primary);
+    box-shadow: 0 10px 22px rgba(37, 99, 235, 0.35);
 }
   
 
