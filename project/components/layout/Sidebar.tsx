@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./Sidebar.module.css";
-import { Home, Calendar, MapPin, Users, LogOut, Dumbbell, Bell, Menu, X } from "lucide-react";
+import { Home, Calendar, MapPin, LogOut, Dumbbell,  Shield , Menu, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useAuth } from "@/app/authentication/auth/AuthContext";
@@ -26,11 +26,16 @@ export default function Sidebar() {
   const displayEmail = user?.email || "";
   const avatarLetter = firstName ? firstName.charAt(0).toUpperCase() : displayEmail.charAt(0).toUpperCase();
 
+  const adminList =
+  process.env.NEXT_PUBLIC_ADMIN_EMAILS?.split(",").map((e) => e.trim()) ?? [];
+
+  const isAdmin = adminList.includes(user?.email ?? "");
+
   const links = [
     { href: "/home", label: "Home", icon: Home },
     { href: "/termini", label: "Events", icon: Calendar },
     { href: "/venues", label: "Venues", icon: MapPin },
-    { href: "/friends", label: "Friends", icon: Users },
+    ...(isAdmin ? [{ href: "/admin", label: "Admin", icon: Shield }] : []),
   ];
 
   return (
@@ -53,9 +58,6 @@ export default function Sidebar() {
               <span>MatchTrack</span>
             </div>
 
-            <button className={styles.bell}>
-              <Bell size={20} />
-            </button>
           </header>
 
           <nav className={styles.nav}>

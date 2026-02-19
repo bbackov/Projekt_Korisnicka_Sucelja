@@ -12,32 +12,34 @@ export default function HomePage() {
       <WelcomeCard />
       <QuickStats />
 
-      <section className={styles.grid}>
-        <div className={styles.recommended}>
-          <h2 className={styles.title}>Preporuceno za tebe</h2>
+      <section className={styles.section}>
+        <div className={styles.recommendedBlock}>
+          <h2 className={styles.sectionTitle}>Preporuceno za tebe</h2>
           <QuickActionCard variant="home" />
         </div>
 
-        <aside className={styles.sidePanel}>
-          <h3 className={styles.sideTitle}>Sljedeci koraci</h3>
-          <p className={styles.sideIntro}>Popuni tjedan aktivnostima i pronadi ekipu za trening.</p>
+        <div className={styles.nextStepsCard}>
+          <h3 className={styles.nextStepsTitle}>Sljedeci koraci</h3>
+          <p className={styles.nextStepsIntro}>
+            Popuni tjedan aktivnostima i pronadi ekipu za trening.
+          </p>
 
-          <div className={styles.sideActions}>
-            <Link href="/termini" className={styles.sideAction}>
+          <div className={styles.nextStepsActions}>
+            <Link href="/termini" className={styles.primaryAction}>
               Pregledaj sve termine
             </Link>
-            <Link href="/venues" className={styles.sideActionAlt}>
+            <Link href="/venues" className={styles.secondaryAction}>
               Pronadi lokacije blizu sebe
             </Link>
           </div>
 
-          <div className={styles.tipCard}>
+          <div className={styles.tipBox}>
             <p className={styles.tipLabel}>Brzi savjet</p>
             <p className={styles.tipText}>
               Aktivnosti s manjim brojem prijavljenih se najbrze popune tijekom veceri.
             </p>
           </div>
-        </aside>
+        </div>
       </section>
     </main>
   );

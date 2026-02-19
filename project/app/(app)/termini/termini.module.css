@@ -286,7 +286,9 @@
     display: flex;
     flex-direction: column;
     gap: 14px;
+    padding-bottom: 10px; 
   }
+  
   
   .metaItem {
     display: flex;
@@ -335,7 +337,7 @@
   .actionsRow {
     display: flex;
     gap: 12px;
-    margin-top: auto;
+    margin-top: 14px;
   }
 
   .registerButton,
