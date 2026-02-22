@@ -8,21 +8,18 @@ export default async function AdminPage() {
     data: { user },
   } = await server.auth.getUser();
 
-  // Not logged in -> go to login
   if (!user) {
     redirect("/authentication/login");
   }
 
-  // Admin whitelist (server-side)
-  const raw = process.env.ADMIN_EMAILS ?? "";
-  const adminEmails = raw
-    .split(",")
-    .map((e) => e.trim())
-    .filter(Boolean);
+  // Admin check iz baze 
+  const { data: prof, error: profErr } = await server
+    .from("profiles")
+    .select("is_admin")
+    .eq("id", user.id)
+    .single();
 
-  const email = user.email ?? "";
-  if (!adminEmails.includes(email)) {
-    // Not admin -> go home (or swap to notFound() if you prefer)
+  if (profErr || !prof?.is_admin) {
     redirect("/");
   }
 

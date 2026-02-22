@@ -76,16 +76,14 @@ export async function POST(req: Request, { params }: { params: { eventId: string
       return NextResponse.json({ success: true });
     }
 
-    const { data: event, error: eventErr } = await svc
-      .from("events")
-      .select("prijavljeno")
-      .eq("id", eventId)
-      .single();
+    const { count, error: countErr } = await svc
+  .from("registrations")
+  .select("*", { count: "exact", head: true })
+  .eq("event_id", eventId);
 
-    if (!eventErr && event) {
-      const nextCount = Math.max(0, (event.prijavljeno ?? 0) - deletedRows.length);
-      await svc.from("events").update({ prijavljeno: nextCount }).eq("id", eventId);
-    }
+  if (!countErr) {
+    await svc.from("events").update({ prijavljeno: count ?? 0 }).eq("id", eventId);
+  }
 
     return NextResponse.json({ success: true });
   } catch (err: unknown) {

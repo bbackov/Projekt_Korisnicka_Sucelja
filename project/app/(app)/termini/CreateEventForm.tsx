@@ -6,6 +6,8 @@ import { showToast } from "@/app/services/toast";
 import { getVenues } from "@/app/(app)/venues/data";
 import type { Venue } from "@/app/(app)/venues/data";
 import styles from "./termini.module.css";
+import { SPORT_LABEL } from "@/components/common/ui/sportTypes";
+import { SportTip } from "@/components/common/ui/sportTypes";
 
 type Props = {
   onSuccess: (event: any) => void;
@@ -18,13 +20,22 @@ export default function CreateEventForm({ onSuccess, onCancel }: Props) {
     lokacija: "",
     vrijeme: "",
     kapacitet: 10,
-    tip: "OTHER",
+    tip: "OTHER" as SportTip,
     opis: "",
     venueId: "",
   });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [venues, setVenues] = useState<Venue[]>([]);
+
+  const selectedVenue = venues.find((v) => String(v.id) === String(form.venueId));
+
+  const allowedSports = (selectedVenue?.sportovi ?? []).filter(
+    (s): s is SportTip => s in SPORT_LABEL
+  );
+
+
+  const tipOptions: SportTip[] = allowedSports.length > 0 ? allowedSports : (selectedVenue ? ["OTHER"] : []);
 
   useEffect(() => {
     const load = async () => {
@@ -37,7 +48,7 @@ export default function CreateEventForm({ onSuccess, onCancel }: Props) {
   const validate = () => {
     const newErrors: Record<string, string> = {};
     if (!form.aktivnost.trim()) newErrors.aktivnost = "Naziv je obavezan";
-    if (!form.lokacija.trim()) newErrors.lokacija = "Lokacija je obavezna";
+    if (!form.venueId.trim()) newErrors.lokacija = "Lokacija je obavezna";
     if (!form.vrijeme.trim()) newErrors.vrijeme = "Vrijeme je obavezno";
     if (form.kapacitet < 1) newErrors.kapacitet = "Kapacitet mora biti > 0";
     if (!form.opis.trim()) newErrors.opis = "Opis je obavezan";
@@ -45,14 +56,43 @@ export default function CreateEventForm({ onSuccess, onCancel }: Props) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const change = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const change = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
-    setForm((p) => ({ ...p, [name]: name === 'kapacitet' ? Number(value) : value }));
+  
+    setForm((prev) => {
+      // promjena venueId: postavi lokaciju i tip ako treba
+      if (name === "venueId") {
+        const v = venues.find((x) => String(x.id) === String(value));
+        const nextLokacija = v?.adresa ?? "";
+        const nextAllowed = ((v?.sportovi ?? []) as SportTip[]);
+  
+        // ako trenutni tip nije dopušten, odaberi prvi dopušten ili OTHER
+        const nextTip =
+          nextAllowed.length > 0
+            ? (nextAllowed.includes(prev.tip) ? prev.tip : nextAllowed[0])
+            : "OTHER";
+  
+        return {
+          ...prev,
+          venueId: value,
+          lokacija: nextLokacija,
+          tip: nextTip,
+        };
+      }
+  
+      // default promjene
+      return {
+        ...prev,
+        [name]: name === "kapacitet" ? Number(value) : value,
+      } as any;
+    });
+  
     if (errors[name]) {
       setErrors((p) => ({ ...p, [name]: "" }));
     }
   };
-
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) {
@@ -71,7 +111,7 @@ export default function CreateEventForm({ onSuccess, onCancel }: Props) {
   };
 
   return (
-    <form className={styles.createForm}>
+    <form className={styles.createForm} onSubmit={submit}>
       <div className={styles.formGroup}>
         <label className={styles.formLabel}>Naziv aktivnosti *</label>
         <input
@@ -87,14 +127,14 @@ export default function CreateEventForm({ onSuccess, onCancel }: Props) {
       <div className={styles.formGroup}>
         <label className={styles.formLabel}>Lokacija *</label>
         <select
-          name="lokacija"
-          value={form.lokacija}
+          name="venueId"
+          value={form.venueId}
           onChange={change}
           className={styles.formSelect}
         >
           <option value="">Odaberi lokaciju</option>
           {venues.map((venue) => (
-            <option key={venue.id} value={venue.adresa}>
+            <option key={venue.id} value={String(venue.id)}>
               {venue.naziv} ({venue.adresa})
             </option>
           ))}
@@ -134,17 +174,20 @@ export default function CreateEventForm({ onSuccess, onCancel }: Props) {
           value={form.tip}
           onChange={change}
           className={styles.formSelect}
+          disabled={!selectedVenue}
+          title={!selectedVenue ? "Prvo odaberite lokaciju" : ""}
         >
-          <option value="OTHER">Ostalo</option>
-          <option value="FOOTBALL">Nogomet</option>
-          <option value="BASKETBALL">Košarka</option>
-          <option value="VOLLEYBALL">Odbojka</option>
-          <option value="TENNIS">Tenis</option>
-          <option value="YOGA">Joga</option>
-          <option value="RUNNING">Trčanje</option>
-          <option value="CYCLING">Bicikliranje</option>
-          <option value="SWIMMING">Plivanje</option>
-          <option value="HIKING">Planinarenje</option>
+          {!selectedVenue ? (
+            <option value="OTHER">Prvo odaberite lokaciju</option>
+          ) : tipOptions.length === 0 ? (
+            <option value="OTHER">Nema definiranih sportova</option>
+          ) : (
+            tipOptions.map((t) => (
+              <option key={t} value={t}>
+                {SPORT_LABEL[t]}
+              </option>
+            ))
+          )}
         </select>
       </div>
 

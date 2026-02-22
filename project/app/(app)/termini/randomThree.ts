@@ -1,14 +1,22 @@
-
 import { SportDogadjaj } from "./data";
-import { SPORT_DOGADJAJI } from "./data";
 
-export async function RandomThree(): Promise<SportDogadjaj[]>{
+export async function RandomThree(): Promise<SportDogadjaj[]> {
+  const res = await fetch("/api/events", { cache: "no-store" });
+  const data = await res.json();
 
-    await new Promise(resolve => setTimeout(resolve, 300));
+  if (!res.ok) {
+    throw new Error(data?.error || "Greška pri dohvaćanju događaja");
+  }
 
-    const filterdSports=SPORT_DOGADJAJI.filter((sport)=>{
-        return sport.kapacitet!==sport.prijavljeno;
-    })
-    
-    return [...filterdSports].sort(() => Math.random() - 0.5).slice(0,3);
+  const events: SportDogadjaj[] = data.events ?? [];
+
+  
+  const filteredSports = events.filter(
+    (sport) => sport.prijavljeno < sport.kapacitet
+  );
+
+ 
+  return filteredSports
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 3);
 }

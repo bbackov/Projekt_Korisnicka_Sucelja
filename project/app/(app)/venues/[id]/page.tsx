@@ -2,10 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, MapPin, Users, Clock, ArrowRight, FileText, Dumbbell } from "lucide-react";
-import { VENUES } from "../data";
-import { SPORT_DOGADJAJI } from "../../termini/data";
 import { formatVrijeme } from "@/util/toDate";
 import styles from "./venueDetail.module.css";
+import { headers } from "next/headers";
+
 
 export default async function VenueDetailPage({
   params,
@@ -13,12 +13,44 @@ export default async function VenueDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const venue = VENUES.find((v) => v.id === Number(id));
-  if (!venue) notFound();
 
-  const relatedEvents = SPORT_DOGADJAJI.filter((e) =>
-    e.lokacija.toLowerCase().includes(venue.naziv.toLowerCase())
-  );
+  const h = await headers();
+  const host = h.get("x-forwarded-host") ?? h.get("host");
+  const proto = h.get("x-forwarded-proto") ?? "http";
+
+  if (!host) notFound();
+
+  const res = await fetch(`${proto}://${host}/api/venues/${id}`, {
+    cache: "no-store",
+  });
+
+  if (res.status === 404) notFound();
+
+  const data = await res.json();
+  if (!res.ok || !data?.venue) notFound();
+
+  const venue = data.venue as {
+    id: string;
+    naziv: string;
+    adresa: string;
+    opis: string;
+    sportovi: string[];
+    aktivnosti: number;
+    slika: string;
+  };
+
+  const evRes = await fetch(`${proto}://${host}/api/events?venueId=${encodeURIComponent(venue.id)}`, {
+    cache: "no-store",
+  });
+  
+  const evData = await evRes.json();
+  const relatedEvents = (evRes.ok ? (evData.events ?? []) : []) as Array<{
+    id: number;
+    aktivnost: string;
+    vrijeme: string;
+    prijavljeno: number;
+    kapacitet: number;
+  }>;
 
   return (
     <main className={styles.page}>
@@ -69,7 +101,7 @@ export default async function VenueDetailPage({
         <div className={styles.sportSection}>
           <h3>Dostupni sportovi</h3>
           <div className={styles.sportTags}>
-            {venue.sportovi.map((sport) => (
+            {venue.sportovi.map((sport: string) => (
               <span key={sport} className={styles.sportTag}>
                 {sport}
               </span>

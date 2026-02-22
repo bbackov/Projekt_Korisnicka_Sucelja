@@ -7,6 +7,7 @@ import type { User } from "@supabase/supabase-js";
 type AuthContextType = {
   isAuthenticated: boolean;
   user: User | null;
+  isAdmin: boolean;
   loading: boolean;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
@@ -16,6 +17,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const supabase = createClient();
@@ -25,17 +27,40 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(user);
   };
 
+  const refreshAdmin = async (u: User | null) => {
+    if (!u) {
+      setIsAdmin(false);
+      return;
+    }
+
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("is_admin")
+      .eq("id", u.id)
+      .single();
+
+    if (error) {
+      setIsAdmin(false);
+      return;
+    }
+
+    setIsAdmin(!!data?.is_admin);
+  };
+
   useEffect(() => {
-    // Get initial session
-    supabase.auth.getUser().then(({ data: { user } }) => {
+    // Initial user + admin load
+    supabase.auth.getUser().then(async ({ data: { user } }) => {
       setUser(user);
+      await refreshAdmin(user);
       setLoading(false);
     });
 
     // Listen to auth state changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setUser(session?.user ?? null);
+      async (_event, session) => {
+        const u = session?.user ?? null;
+        setUser(u);
+        await refreshAdmin(u);
         setLoading(false);
       }
     );
@@ -43,17 +68,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => {
       subscription.unsubscribe();
     };
+
   }, []);
 
   const logout = async () => {
     await supabase.auth.signOut();
     setUser(null);
+    setIsAdmin(false);
   };
 
   const isAuthenticated = !!user;
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, loading, logout, refreshUser }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, user, isAdmin, loading, logout, refreshUser }}
+    >
       {children}
     </AuthContext.Provider>
   );
