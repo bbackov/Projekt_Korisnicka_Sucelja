@@ -55,10 +55,18 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, error: "Already registered" }, { status: 400 });
     }
 
-    if (event.prijavljeno >= event.kapacitet) {
+    const { count: currentCount, error: currentCountErr } = await svc
+    .from("registrations")
+    .select("*", { count: "exact", head: true })
+    .eq("event_id", eventId);
+  
+    if (currentCountErr) {
+      return NextResponse.json({ success: false, error: currentCountErr.message }, { status: 500 });
+    }
+    
+    if ((currentCount ?? 0) >= (event.kapacitet ?? 0)) {
       return NextResponse.json({ success: false, error: "Full" }, { status: 400 });
     }
-
     const { error: insertErr } = await svc
       .from("registrations")
       .insert({ event_id: eventId, user_id: user.id });
@@ -70,14 +78,23 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, error: insertErr.message }, { status: 500 });
     }
 
-    const { error: updateErr } = await svc
-      .from("events")
-      .update({ prijavljeno: Math.max(0, (event.prijavljeno ?? 0) + 1) })
-      .eq("id", eventId);
-
-    if (updateErr) {
-      return NextResponse.json({ success: false, error: updateErr.message }, { status: 500 });
-    }
+    const { count, error: countErr } = await svc
+    .from("registrations")
+    .select("*", { count: "exact", head: true })
+    .eq("event_id", eventId);
+  
+  if (countErr) {
+    return NextResponse.json({ success: false, error: countErr.message }, { status: 500 });
+  }
+  
+  const { error: updateErr } = await svc
+    .from("events")
+    .update({ prijavljeno: count ?? 0 })
+    .eq("id", eventId);
+  
+  if (updateErr) {
+    return NextResponse.json({ success: false, error: updateErr.message }, { status: 500 });
+  }
 
     return NextResponse.json({ success: true, eventId });
   } catch (err: unknown) {

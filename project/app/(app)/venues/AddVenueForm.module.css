@@ -1,0 +1,209 @@
+.form {
+  padding: 24px;
+  overflow-y: auto;
+  display: grid;
+  gap: 28px;
+}
+
+/* sekcije */
+.section {
+  display: grid;
+  gap: 14px;
+}
+
+.sectionTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* PURE selectors: sve je vezano za .form */
+.form input,
+.form textarea {
+  width: 100%;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #0f172a;
+  background: #ffffff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form input:focus,
+.form textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+  outline: none;
+}
+
+.search {
+  margin-bottom: 6px;
+}
+
+.categoryTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+  margin-top: 10px;
+}
+
+/* sport grid */
+.sportGrid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  margin-bottom: 8px;
+}
+
+.sportCard {
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s ease, border-color 0.15s ease,
+    transform 0.08s ease;
+
+  /* bolji izgled i poravnanje */
+  text-align: center;
+  line-height: 1.15;
+  display: grid;
+  place-items: center;
+  min-height: 42px;
+}
+
+.sportCard:hover {
+  background: #f8fafc;
+}
+
+.sportCard:active {
+  transform: scale(0.99);
+}
+
+.selected {
+  background: #eff6ff;
+  border-color: #2563eb;
+  color: #1d4ed8;
+  font-weight: 600;
+}
+
+/* odabrani sportovi tagovi */
+.selectedList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.tag {
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tag button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+  font-size: 12px;
+  line-height: 1;
+  padding: 2px 4px;
+}
+
+/* akcije */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 8px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.primary {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.secondary {
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary:disabled,
+.secondary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* error */
+.error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 12px;
+  border-radius: 12px;
+  color: #991b1b;
+}
+
+/* MOBILE FRIENDLY */
+@media (max-width: 640px) {
+  .form {
+    padding: 16px;
+    gap: 20px;
+  }
+
+  .section {
+    gap: 12px;
+  }
+
+  /* iOS zoom fix: 16px */
+  .form input,
+  .form textarea {
+    font-size: 16px;
+    padding: 12px 12px;
+  }
+
+  .sportGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .sportCard {
+    min-height: 44px; /* touch target */
+    padding: 12px 10px;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+
+  .primary,
+  .secondary {
+    width: 100%;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 380px) {
+  .sportGrid {
+    grid-template-columns: 1fr;
+  }
+}

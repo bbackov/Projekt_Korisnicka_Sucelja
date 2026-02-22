@@ -1,5 +1,4 @@
 import { SPORT_META } from "@/components/common/ui/sportMeta";
-import { SPORT_DOGADJAJI } from "../data";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Icon } from "@iconify/react";
@@ -8,34 +7,40 @@ import { formatVrijeme } from "@/util/toDate";
 import { JoinButton } from "./JoinButton";
 import { createClient as createServiceClient } from "@supabase/supabase-js";
 import styles from "./detalji.module.css"
+import { SportTip } from "@/components/common/ui/sportTypes";
 
 export default async function DetaljiPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const eventId = Number(id);
+
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-  let item = null as (typeof SPORT_DOGADJAJI)[number] | null;
-  if (supabaseUrl && serviceRoleKey) {
-    const svc = createServiceClient(supabaseUrl, serviceRoleKey);
-    const { data, error } = await svc.from("events").select("*").eq("id", eventId).single();
-    item = (data as (typeof SPORT_DOGADJAJI)[number] | null) ?? null;
-    if (error || !item) {
-      notFound();
-    }
-  }
+  
+  if (!supabaseUrl || !serviceRoleKey) notFound();
 
-  if (!supabaseUrl || !serviceRoleKey) {
-    item = SPORT_DOGADJAJI.find(t => t.id === eventId) ?? null;
-  }
+  const svc = createServiceClient(supabaseUrl, serviceRoleKey);
+  const { data, error } = await svc
+  .from("events")
+  .select(`
+    *,
+    profiles:created_by (
+      first_name,
+      last_name
+    )
+  `)
+  .eq("id", eventId)
+  .single();
+
+  const item = data ?? null;
+  if (error || !item) notFound();
 
   if (!item) notFound();
-  const meta = SPORT_META[item.tip] ?? SPORT_META.OTHER;
+
+  const tip = (item.tip as SportTip) ?? "OTHER";
+  const meta = SPORT_META[tip] ?? SPORT_META.OTHER;
+
   const full=item.prijavljeno >= item.kapacitet;
-
-  
-
-
 
   return (
     <div className={styles.overlay}>
@@ -88,7 +93,10 @@ export default async function DetaljiPage({ params }: { params: Promise<{ id: st
           <User2 />
           <div>
             <h3>Kreator</h3>
-            <p>ime</p>
+            <p> {item.profiles
+                ? `${item.profiles.first_name} ${item.profiles.last_name}`
+                : "Nepoznato"}
+            </p>
           </div>
         </div>
 

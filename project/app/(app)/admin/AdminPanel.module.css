@@ -1,0 +1,212 @@
+/* ===============================
+   PAGE
+================================ */
+.page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  
+  /* ===============================
+     MAIN CARD
+  ================================ */
+  .card {
+    background: white;
+    border-radius: 24px;
+    padding: 36px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 12px 40px rgba(15, 23, 42, 0.08);
+  }
+  
+  /* ===============================
+     TITLE
+  ================================ */
+  .title {
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    margin-bottom: 28px;
+  
+    background: linear-gradient(90deg, #2563eb, #7c3aed);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  /* ===============================
+     SEARCH
+  ================================ */
+  .searchSection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .searchSection label {
+    font-weight: 700;
+    font-size: 14px;
+    color: #334155;
+  }
+  
+  .searchRow {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .input {
+    flex: 1;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1.5px solid #e2e8f0;
+    font-size: 14px;
+    transition: all 0.2s ease;
+  }
+  
+  .input:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  }
+  
+  /* ===============================
+     SEARCH BUTTON
+  ================================ */
+  .searchButton {
+    padding: 14px 22px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+  
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    color: white;
+  
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+    transition: all 0.2s ease;
+  }
+  
+  .searchButton:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(99, 102, 241, 0.4);
+  }
+  
+  .searchButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  /* ===============================
+     ERROR
+  ================================ */
+  .error {
+    margin-top: 18px;
+    padding: 14px;
+    border-radius: 12px;
+    background: #fee2e2;
+    color: #991b1b;
+    font-weight: 600;
+  }
+  
+  /* ===============================
+     USER CARD
+  ================================ */
+  .userCard {
+    margin-top: 28px;
+    padding: 24px;
+    border-radius: 18px;
+    border: 1px solid #e2e8f0;
+    background: linear-gradient(180deg, #f8fafc, #ffffff);
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+  }
+  
+  .userInfo {
+    margin-bottom: 18px;
+  }
+  
+  .name {
+    font-size: 18px;
+    font-weight: 800;
+    color: #0f172a;
+  }
+  
+  .email {
+    font-size: 14px;
+    color: #64748b;
+  }
+  
+  /* ===============================
+     PERMISSION ROW
+  ================================ */
+  .permissionRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  
+  .permissionRow span {
+    font-size: 14px;
+    color: #334155;
+  }
+  
+  /* ===============================
+     BUTTONS
+  ================================ */
+  .addButton,
+  .removeButton {
+    padding: 12px 18px;
+    border-radius: 14px;
+    border: none;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .addButton {
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    color: white;
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+  }
+  
+  .addButton:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(99, 102, 241, 0.4);
+  }
+  
+  .removeButton {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: white;
+    box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+  }
+  
+  .removeButton:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(249, 115, 22, 0.4);
+  }
+  
+  .addButton:disabled,
+  .removeButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  /* ===============================
+     MOBILE
+  ================================ */
+  @media (max-width: 768px) {
+    .searchRow {
+      flex-direction: column;
+    }
+  
+    .searchButton {
+      width: 100%;
+    }
+  
+    .permissionRow {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }

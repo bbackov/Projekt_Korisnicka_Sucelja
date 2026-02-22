@@ -70,6 +70,25 @@
     color: #64748b;
     margin-top: 4px;
 }
+
+.iconStatic {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .iconGradient {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   
 @media (max-width: 1024px) {
     .wrapper {

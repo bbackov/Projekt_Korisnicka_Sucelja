@@ -1,15 +1,46 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { MapPin, ArrowRight, ArrowLeft, Eye } from "lucide-react";
+import { MapPin, ArrowRight, ArrowLeft, Eye,Plus } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { getVenues, Venue } from "./data";
 import styles from "./venues.module.css";
+import AddVenueModal from "./AddVenueModal";
+import {createClient } from "@/lib/supabase/client";
+import { useMemo } from "react";
+
+
 
 export default function VenuesPage() {
+
+  const supabase = useMemo(() => createClient(), []);
+
   const [venues, setVenues] = useState<Venue[]>([]);
   const [search, setSearch] = useState("");
+  const [canCreateVenue, setCanCreateVenue] = useState(false);
+  const [addOpen, setAddOpen] = useState(false);
+
+  useEffect(() => {
+    const loadPerm = async () => {
+      const { data: u } = await supabase.auth.getUser();
+      if (!u.user) {
+        setCanCreateVenue(false);
+        return;
+      }
+
+      
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("can_create_venue")
+        .eq("id", u.user.id)
+        .single();
+
+      setCanCreateVenue(!error && !!data?.can_create_venue);
+    };
+
+    loadPerm();
+  }, [supabase]);
 
   const filtered = venues.filter((v) => {
     const q = search.toLowerCase().trim();
@@ -49,6 +80,13 @@ export default function VenuesPage() {
             sljedeću aktivnost.
           </p>
         </div>
+
+        {canCreateVenue && (
+          <button onClick={() => setAddOpen(true)} className={styles.createBtn}>
+            <Plus className={styles.plus}/>
+            Dodaj lokaciju
+          </button>
+        )}
 
         <div className={styles.searchWrapper}>
           <label htmlFor="search-venues">Pretraži lokacije</label>
@@ -144,6 +182,16 @@ export default function VenuesPage() {
           </div>
         </div>
       )}
+
+      <AddVenueModal
+        open={addOpen}
+        onClose={() => setAddOpen(false)}
+        onCreated={(newVenue) => {
+          setVenues((prev) => [newVenue, ...prev]);
+        }}
+      />
     </main>
+
+    
   );
 }
