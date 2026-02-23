@@ -5,7 +5,7 @@ import { ArrowLeft, MapPin, Users, Clock, ArrowRight, FileText, Dumbbell } from 
 import { formatVrijeme } from "@/util/toDate";
 import styles from "./venueDetail.module.css";
 import { headers } from "next/headers";
-
+import DeleteVenueButton from "./DeleteVenueButton";
 
 export default async function VenueDetailPage({
   params,
@@ -146,6 +146,10 @@ export default async function VenueDetailPage({
             })
           )}
         </div>
+        <DeleteVenueButton
+          venueId={venue.id}
+          disabled={relatedEvents.length > 0}
+        />
       </div>
     </main>
   );
