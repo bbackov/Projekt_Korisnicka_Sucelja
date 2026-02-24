@@ -1,0 +1,12 @@
+import { defineConfig } from "sanity";
+import { deskTool } from "sanity/desk";
+import { schemaTypes } from "./sanity/schemaTypes";
+
+export default defineConfig({
+  name: "default",
+  title: "MatchTrack CMS",
+  projectId: "1pw77ro4",
+  dataset: "production",
+  plugins: [deskTool()],
+  schema: { types: schemaTypes },
+});
