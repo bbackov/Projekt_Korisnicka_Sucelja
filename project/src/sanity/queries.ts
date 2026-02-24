@@ -1,7 +1,11 @@
-// project/src/sanity/queries.ts
 export const HOMEPAGE_QUERY = `
 *[_type == "homepage"][0]{
-  recommendedTitle,
+  heroTitle,
+  heroSubtitle,
+  heroBadge,
+  heroCtaText,
+  heroCtaHref,
+
   nextStepsTitle,
   nextStepsIntro,
   primaryCtaText,
@@ -9,6 +13,18 @@ export const HOMEPAGE_QUERY = `
   secondaryCtaText,
   secondaryCtaHref,
   tipLabel,
-  tipText
+  tipText,
+
+  newsTitle,
+  newsItems[]{
+    title,
+    excerpt,
+    href,
+    date,
+    tag,
+    image{
+      asset->{url}
+    }
+  }
 }
 `;
