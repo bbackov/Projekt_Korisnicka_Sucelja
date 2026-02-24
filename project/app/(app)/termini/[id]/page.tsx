@@ -8,6 +8,7 @@ import { JoinButton } from "./JoinButton";
 import { createClient as createServiceClient } from "@supabase/supabase-js";
 import styles from "./detalji.module.css"
 import { SportTip } from "@/components/common/ui/sportTypes";
+import DeleteEventButton from "./DeleteButton";
 
 export default async function DetaljiPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -100,9 +101,10 @@ export default async function DetaljiPage({ params }: { params: Promise<{ id: st
           </div>
         </div>
 
-        <div className={styles.action}>
-          <JoinButton full={full} eventId={item.id} />
-        </div>
+          <div className={styles.action}>
+            <JoinButton full={full} eventId={item.id} />
+            <DeleteEventButton eventId={item.id} />
+          </div>
         </div>
       </div>
   );

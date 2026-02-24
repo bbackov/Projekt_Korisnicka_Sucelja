@@ -41,7 +41,7 @@ export default function QuickStats() {
     <section className={styles.wrapper}>
       {/* Ukupno termina */}
       <div className={styles.card}>
-        <div className={styles.iconStatic}>
+        <div className={styles.iconBox}>
           <Icon icon="mdi:calendar-multiple" width={22} />
         </div>
         <div className={styles.text}>
@@ -55,7 +55,7 @@ export default function QuickStats() {
 
       {/* Moje prijave */}
       <div className={styles.card}>
-        <div className={styles.iconStatic}>
+        <div className={styles.iconBox}>
           <Icon icon="mdi:account-check" width={22} />
         </div>
         <div className={styles.text}>
@@ -71,12 +71,7 @@ export default function QuickStats() {
 
       {/* Najpopularniji sport */}
       <div className={styles.card}>
-        <div
-          className={styles.iconGradient}
-          style={{
-            background: popularMeta?.gradient ?? "linear-gradient(135deg,#64748b,#475569)",
-          }}
-        >
+        <div className={styles.iconBox}>
           {popularMeta && (
             <Icon icon={popularMeta.icon} width={22} color="white" />
           )}

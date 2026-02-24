@@ -126,7 +126,12 @@
   
   /* ACTION */
   .action {
-    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;   /* centriranje */
+    gap: 12px;
+    margin-top: 20px;
+    padding: 0 24px;       /* ⬅️ ovo ih odvaja od rubova */
   }
   
   /* DESKTOP */
@@ -138,5 +143,10 @@
     .modal {
       max-width: 520px;
       border-radius: 28px;
+    }
+
+    .action {
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
     }
   }
