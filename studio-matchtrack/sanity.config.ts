@@ -5,13 +5,8 @@ import { schemaTypes } from "./schemaTypes";
 export default defineConfig({
   name: "default",
   title: "MatchTrack CMS",
-
   projectId: "1pw77ro4",
   dataset: "production",
-
   plugins: [deskTool()],
-
-  schema: {
-    types: schemaTypes,
-  },
+  schema: { types: schemaTypes },
 });
