@@ -147,7 +147,7 @@ Aplikacija je javno dostupna i optimizirana za produkcijsko okruženje. Ispod su
 
 | Platforma | Poveznica |
 | :--- | :--- |
-| **Live Web App** | [https://projekt-korisnicka-sucelja-orcin.vercel.app/](https://projekt-korisnicka-sucelja-orcin.vercel.app/) |
+| **Live Web App** | [https://projekt-korisnicka-sucelja-m9jgbcjpp-renatos-projects-337a747c.vercel.app](https://projekt-korisnicka-sucelja-m9jgbcjpp-renatos-projects-337a747c.vercel.app) |
 | **GitHub Repozitorij** | [https://github.com/rene19082003/Projekt_Korisnicka_Sucelja](https://github.com/rene19082003/Projekt_Korisnicka_Sucelja) |
 | **Desktop Performance** | [Pokreni Desktop Analizu](https://pagespeed.web.dev/analysis?url=https://projekt-korisnicka-sucelja-orcin.vercel.app/&form_factor=desktop) |
 | **Mobile Performance** | [Pokreni Mobile Analizu](https://pagespeed.web.dev/analysis?url=https://projekt-korisnicka-sucelja-orcin.vercel.app/&form_factor=mobile) |
