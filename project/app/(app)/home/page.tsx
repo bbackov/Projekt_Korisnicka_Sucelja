@@ -4,7 +4,7 @@ import QuickActionCard from "@/components/home/QuickActionCards";
 import Link from "next/link";
 import styles from "./home.module.css";
 
-import { sanityClient } from "@/src/sanity/client";
+import { isSanityConfigured, sanityClient } from "@/src/sanity/client";
 import { HOMEPAGE_QUERY } from "@/src/sanity/queries";
 
 type HomeCms = {
@@ -37,7 +37,10 @@ type HomeCms = {
 export const revalidate = 60;
 
 export default async function HomePage() {
-  const cms = await sanityClient.fetch<HomeCms>(HOMEPAGE_QUERY);
+  const cms =
+    isSanityConfigured && sanityClient
+      ? await sanityClient.fetch<HomeCms>(HOMEPAGE_QUERY)
+      : null;
 
   return (
     <main>
